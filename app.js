@@ -27,6 +27,10 @@ const corsOptions = {
   app.use(require("./Routes/PassengerRequest"));
   app.use(require("./Routes/Journey"));
 
+  app.get('/',(req,res) =>{
+    res.send('API is Running Successfully.')
+  })
+
   if (
     process.env.NODE_ENV === "production" ||
     process.env.NODE_ENV === "staging"
