@@ -1,9 +1,11 @@
 const express = require("express");
-const { registerUser, loginUser, getUserData } = require("../Controllers/UserController");
+const Authenticate = require("../Authenticate/authenticate");
+const {getUserData, verifyOtp, sendOtp, registerUser } = require("../Controllers/UserController");
 const router = express.Router();
 
+router.post('/otp', sendOtp);
+router.post('/otp/verify',verifyOtp);
 router.post('/register', registerUser);
-router.post('/login', loginUser);
-router.get('/user/:userId', getUserData)
+router.get('/user/:userId',Authenticate ,getUserData);
 
 module.exports = router;

@@ -3,21 +3,91 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 router.use(express.json());
 const UserModel = require("../Models/UserModel");
+const _ = require('lodash')
+const otpGenerator = require('otp-generator');
+const OtpModel = require("../Models/OtpModel");
+const AuthModel = require("../Models/AuthModel");
 
-//Registeration Route
-const registerUser = async (req, res) => {
+//SendOtp Route
+const sendOtp = async (req, res) => {
     try {
-      const { name, email, password, phone, city, gender, isDriver, profileImg, confirmPass} = req.body;
-      if (!name || !email || !password || !phone || !city || !gender || isDriver === null || isDriver === undefined || !confirmPass || !profileImg) {
+      const {phone} = req.body;
+      if (!phone) {
+        return res
+          .status(422)
+          .json({ message: "Mobile Number cannot be empty", success: false });
+      }
+
+      // Generating OTP 
+      const otp = otpGenerator.generate(4,{
+        digits: true,
+        lowerCaseAlphabets: false,
+        upperCaseAlphabets: false,
+        specialChars: false
+      });
+      console.log('OTP',otp);
+
+      const newOtp = new OtpModel({number: phone,otp: otp});
+      newOtp.otp = await bcrypt.hash(newOtp.otp,12);
+      const result = await newOtp.save();
+      console.log(result);
+
+      const accountSid = process.env.TWILIO_SID;
+      const authToken = process.env.TWILIO_TOKEN;
+      const client = require("twilio")(accountSid, authToken);
+
+      client.messages
+        .create({ body: `Your OTP verification code is ${otp}`, from: "+12705156712", to: phone})
+        .then(message => console.log(message.sid));
+            return res.status(200).json({message: 'OTP sent successfully.',success: true})
+  
+    } catch (err) {
+      res.status(500).json({ message: err.message, success: false });
+    }
+  };
+
+  // Verify Otp 
+  const verifyOtp = async (req,res) =>{
+    const otpHolder = await OtpModel.find({number: req.body.phone});
+    if(otpHolder.length === 0){
+      return res.status(400).json({message: 'You have used an Expired OTP!',success: false});
+    }
+    
+    const rightOtpFind = otpHolder[otpHolder.length - 1];
+    const validUser = await bcrypt.compare(req.body.otp, rightOtpFind.otp);
+
+    if(rightOtpFind.number === req.body.phone && validUser){
+      const {phone} = req.body;
+      const user = new AuthModel(_.pick(req.body, ["phone"]));
+      const isUser = await AuthModel.findOne({phone: phone});
+
+      if(isUser){
+      //Generating JSON web token
+       const token = await isUser.generateAuthToken();
+       const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
+       return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfile: true})
+
+      }else{
+        //Generating JSON web token
+       const token = await user.generateAuthToken();
+        const result = await user.save();
+       const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
+       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfile: false})
+      }
+
+       
+    }else{
+      return res.status(400).json({message: 'Your OTP was wrong',success: false});
+    }
+  }
+
+  const registerUser = async (req,res) =>{
+    try {
+      const { name, email, city, gender, isDriver, profileImg,userId} = req.body;
+      if (!name || !email || !city || !gender || isDriver === null || isDriver === undefined || !profileImg || !userId) {
         return res
           .status(422)
           .json({ message: "Please fill out all the fileds properly.", success: false });
-      }
-  
-      if (password != confirmPass) {
-        return res
-          .status(422)
-          .json({ message: "Password do not match", success: false });
       }
   
       const userExist = await UserModel.findOne({ email: email });
@@ -26,70 +96,69 @@ const registerUser = async (req, res) => {
           .status(422)
           .json({ message: "Email already exist", success: false });
       }
-      const user = new UserModel({ name, email, password, phone, city, gender, isDriver, profileImg });
+      const user = new UserModel({ name, email, city, gender, isDriver, profileImg,userId });
       const userRegister = await user.save();
       if (userRegister) {
         res
           .status(200)
-          .json({ message: "User registered successfully..", success: true });
+          .json({ message: "User Profile Registered successfully..", success: true });
       }
     } catch (err) {
       res.status(500).json({ message: err.message, success: false });
     }
-  };
+  }
 
   //Login Route
-const loginUser = async (req, res) => {
-    try {
-      let token;
-      const { email, password } = req.body;
-      if (!email || !password) {
-        return res
-          .status(400)
-          .json({ message: "Email or Password cannot be empty", success: false });
-      }
-      const signin = await UserModel.findOne({ email: email });
-      if (signin) {
-        const isMatch = await bcrypt.compare(password, signin.password);
-        if (isMatch) {
-          //Generating JSON web token
-          token = await signin.generateAuthToken();
-          res.cookie("jwtoken", token, {
-            expires: new Date(Date.now() + 2592000000),
-            httpOnly: true,
-          });
-          res.status(200).json({ message: "Login Successfully", success: true,token: token });
-        } else {
-          res
-            .status(400)
-            .json({ message: "Invalid login details", success: false });
-        }
-      } else {
-        res
-          .status(404)
-          .json({ message: "Invalid login details", success: false });
-      }
-    } catch (error) {
-      res
-        .status(500)
-        .json({
-          message: "Something went wrong Please try again",
-          success: false,
-        });
-    }
-  };
+// const loginUser = async (req, res) => {
+//     try {
+//       let token;
+//       const { email, password } = req.body;
+//       if (!email || !password) {
+//         return res
+//           .status(400)
+//           .json({ message: "Email or Password cannot be empty", success: false });
+//       }
+//       const signin = await UserModel.findOne({ email: email });
+//       if (signin) {
+//         const isMatch = await bcrypt.compare(password, signin.password);
+//         if (isMatch) {
+//           //Generating JSON web token
+//           token = await signin.generateAuthToken();
+//           res.cookie("jwtoken", token, {
+//             expires: new Date(Date.now() + 2592000000),
+//             httpOnly: true,
+//           });
+//           res.status(200).json({ message: "Login Successfully", success: true,token: token });
+//         } else {
+//           res
+//             .status(400)
+//             .json({ message: "Invalid login details", success: false });
+//         }
+//       } else {
+//         res
+//           .status(404)
+//           .json({ message: "Invalid login details", success: false });
+//       }
+//     } catch (error) {
+//       res
+//         .status(500)
+//         .json({
+//           message: "Something went wrong Please try again",
+//           success: false,
+//         });
+//     }
+//   };
   
   
   
   const getUserData = async (req, res) => {
     try {
       const userId = req.params.userId;
-      const user = await UserModel.findById(userId);
-      const { password, ...other } = user._doc;
-      res.status(200).json({ user: other, success: true });
+      const user = await UserModel.find({userId});
+      res.status(200).json({ data: user, success: true });
     } catch (error) {
       res.status(500).json(error);
     }
   };
 
-  module.exports = {registerUser,loginUser,getUserData}
+  module.exports = {sendOtp,getUserData,verifyOtp,registerUser}

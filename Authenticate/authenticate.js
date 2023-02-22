@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const UserModel = require("../Models/UserModel");
+const AuthModel = require("../Models/AuthModel");
 
 const Authenticate = async (req, res, next) => {
   try {
@@ -11,14 +11,14 @@ const Authenticate = async (req, res, next) => {
       console.log('Bearer',jwtToken);
     
     const verifyToken = jwt.verify(jwtToken, process.env.SECRET_KEY);
-    const rootUser = await UserModel.findOne({
+    const rootUser = await AuthModel.findOne({
       _id: verifyToken._id,
       "tokens.token": jwtToken,
     });
     if (!rootUser) {
       throw new Error("User not found..");
     }
-    const { password, ...others } = rootUser._doc;
+    const {...others } = rootUser._doc;
     req.token = jwtToken;
     req.rootUser = { data: others, success: true };
     req.userId = rootUser._id;
