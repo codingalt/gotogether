@@ -37,8 +37,8 @@ const sendOtp = async (req, res) => {
 
       client.messages
         .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
-        .then(message =>  {return res.status(200).json(message.sid)});
-//             return res.status(200).json({message: 'OTP sent successfully.',success: true,phone: phone})
+        .then(message =>  console.log(message.sid));
+            return res.status(200).json({message: 'OTP sent successfully.',success: true,phone: phone})
   
     } catch (err) {
       res.status(500).json({ message: err.message, success: false });
