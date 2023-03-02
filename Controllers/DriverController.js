@@ -3,14 +3,13 @@ const DriverModel = require("../Models/DriverModel");
 const UserModel = require("../Models/UserModel");
 
 const registerDriver = async (req, res) => {
+  // console.log(req.files);
   try {
     const {
       userId,
       fatherName,
       birthDate,
       cnic,
-      cnicImgFront,
-      cnicImgBack,
       totalReviewsGiven,
       totalRating,
       profileStatus,
@@ -19,7 +18,22 @@ const registerDriver = async (req, res) => {
       liscenseDetails,
     } = req.body;
 
-    if(!userId || !fatherName || !birthDate || !cnic || !cnicImgFront || !cnicImgBack || !totalReviewsGiven || !totalRating || !residentialAddress || !vehicleDetails || !liscenseDetails){
+    const cnicImgFront = req.files.cnicfront[0].filename;
+    const cnicImgBack = req.files.cnicback[0].filename;
+    const vehicleRegisterCertificate = req.files.vehicleCertificate[0].filename;
+    const vehicles = req.files.vehicles;
+    const liscense = req.files.liscense;
+    const vehicleImages = [];
+    const liscenseImages = [];
+    vehicles.map((item)=>{
+      vehicleImages.push({path: item.filename})
+    });
+
+    liscense.map((item)=>{
+      liscenseImages.push({path: item.filename})
+    })
+
+    if(!userId || !fatherName || !birthDate || !cnic || !totalReviewsGiven || !totalRating || !residentialAddress || !vehicleDetails || !liscenseDetails){
         return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
     }
 
@@ -29,13 +43,13 @@ const registerDriver = async (req, res) => {
     }
     if(!isUser.isDriver){
         // Adding Driver
-        const driver = new DriverModel({userId,fatherName,birthDate,cnic,cnicImgFront,cnicImgBack,totalReviewsGiven,totalRating,profileStatus,residentialAddress,vehicleDetails,liscenseDetails})
+        const driver = new DriverModel({userId,fatherName,birthDate,cnic,cnicImgFront,cnicImgBack,totalReviewsGiven,totalRating,profileStatus,residentialAddress,vehicleDetails,liscenseDetails,vehicleImages,liscenseImages,vehicleRegisterCertificate})
         const driverRegister = await driver.save();
 
         // Updating isDriver Property in User Table 
         const updateUser = await UserModel.findByIdAndUpdate(isUser._id, {isDriver: true});
         if(driverRegister){
-            res.status(200).json({message: 'Driver Registered Successfully.', success: true})
+            res.status(200).json({message: 'Driver Registered Successfully.', success: true,driverRegister})
         } 
     }else{
         res.status(400).json({message: "You are already Registered as a driver",success: false})

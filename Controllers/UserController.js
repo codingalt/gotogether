@@ -30,21 +30,57 @@ const sendOtp = async (req, res) => {
       const newOtp = new OtpModel({number: phone,otp: otp});
       newOtp.otp = await bcrypt.hash(newOtp.otp,12);
       const result = await newOtp.save();
-      console.log(result);
 
       const accountSid = process.env.TWILIO_SID;
       const authToken = process.env.TWILIO_TOKEN;
       const client = require("twilio")(accountSid, authToken);
 
       client.messages
-        .create({ body: `Your OTP verification code is ${otp}`, from: "+12705156712", to: phone})
-        .then(message => console.log(message.sid));
+        .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
+        .then(message => console.log(message.body));
             return res.status(200).json({message: 'OTP sent successfully.',success: true})
   
     } catch (err) {
       res.status(500).json({ message: err.message, success: false });
     }
   };
+
+  //SendOtp Route 2
+const sendOtp2 = async (req, res) => {
+  try {
+    const {phone} = req.body;
+    if (!phone) {
+      return res
+        .status(422)
+        .json({ message: "Mobile Number cannot be empty", success: false });
+    }
+
+    // Generating OTP 
+    const otp = otpGenerator.generate(4,{
+      digits: true,
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
+      specialChars: false
+    });
+    console.log('OTP',otp);
+
+    const newOtp = new OtpModel({number: phone,otp: otp});
+    newOtp.otp = await bcrypt.hash(newOtp.otp,12);
+    const result = await newOtp.save();
+
+    const accountSid = process.env.TWILIO_SID2;
+    const authToken = process.env.TWILIO_TOKEN2;
+    const client = require("twilio")(accountSid, authToken);
+
+    client.messages
+      .create({ body: `Your OTP verification code is ${otp}`, from: "+12762901463", to: phone})
+      .then(message => console.log(message.sid));
+          return res.status(200).json({message: 'OTP sent successfully.',success: true})
+
+  } catch (err) {
+    res.status(500).json({ message: err.message, success: false });
+  }
+};
 
   // Verify Otp 
   const verifyOtp = async (req,res) =>{
@@ -82,9 +118,10 @@ const sendOtp = async (req, res) => {
   }
 
   const registerUser = async (req,res) =>{
+    const profileImg = (req.file) ? req.file.filename : null;
     try {
-      const { name, email, city, gender, isDriver, profileImg,userId} = req.body;
-      if (!name || !email || !city || !gender || isDriver === null || isDriver === undefined || !profileImg || !userId) {
+      const { name, email, city, gender, isDriver,userId} = req.body;
+      if (!name || !email || !city || !gender || isDriver === null || isDriver === undefined || !userId) {
         return res
           .status(422)
           .json({ message: "Please fill out all the fileds properly.", success: false });
@@ -161,4 +198,4 @@ const sendOtp = async (req, res) => {
     }
   };
 
-  module.exports = {sendOtp,getUserData,verifyOtp,registerUser}
+  module.exports = {sendOtp,sendOtp2,getUserData,verifyOtp,registerUser}

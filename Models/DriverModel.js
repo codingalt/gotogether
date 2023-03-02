@@ -21,20 +21,10 @@ const driverSchema = mongoose.Schema(
         unique: true,
       },
       cnicImgFront: {
-        public_id: {
-            type: String,
-          },
-          url: {
-            type: String,
-          },
+        type: String
       },
       cnicImgBack: {
-        public_id: {
-            type: String,
-          },
-          url: {
-            type: String,
-          },
+        type: String
       },
       totalReviewsGiven: {
         type: Number,
@@ -57,43 +47,27 @@ const driverSchema = mongoose.Schema(
             vehicleType: String,
             vehicleNumber: String,
             vehicleColor: String,
-            vehicleRegisterCertificate: {
-              public_id: {
-                type: String,
-              },
-              url: {
-                type: String,
-              },
-            },
             vehicleBrand: String,
             vehicleSeats: Number,
-            vehicleImages: {
-                public_id: {
-                    type: String,
-                  },
-                  url: {
-                    type: String,
-                  },
-            },
-
         }
       ],
+      vehicleRegisterCertificate: {
+        type: String
+      },
+      vehicleImages: [{
+        path: String
+      }],
 
       liscenseDetails: [
         {
             liscenseNumber: String,
-            liscenseImages: {
-                public_id: {
-                    type: String,
-                  },
-                  url: {
-                    type: String,
-                  },
-            },
             liscenseExpiryDate: String,
             liscenseType: String
         }
-      ]
+      ],
+      liscenseImages: [{
+        path: String
+      }],
      
     },
     { timestamps: true }

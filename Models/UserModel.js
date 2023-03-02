@@ -30,12 +30,7 @@ const userSchema = mongoose.Schema(
         default: false,
       },
       profileImg: {
-        public_id: {
-          type: String,
-        },
-        url: {
-          type: String,
-        },
+        type: String,
       },
      
     },

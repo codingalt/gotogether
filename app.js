@@ -13,6 +13,7 @@ const path = require("path");
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
+app.use('/Uploads',express.static('Uploads'));
 
 const corsOptions = {
     origin: true, 
@@ -26,7 +27,6 @@ const corsOptions = {
   app.use(require("./Routes/DriverRoute"));
   app.use(require("./Routes/DriverCampaign"));
   app.use(require("./Routes/PassengerRequest"));
-  app.use(require("./Routes/Journey"));
 
   app.get('/',(req,res) =>{
     res.send('API is Running Successfully.')
