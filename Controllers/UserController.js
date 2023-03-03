@@ -37,8 +37,9 @@ const sendOtp = async (req, res) => {
 
       client.messages
         .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
-        .then(message => console.log(message.body));
-            return res.status(200).json({message: 'OTP sent successfully.',success: true})
+        .then((message) =>  {
+          return res.status(200).json({message: 'OTP sent successfully.',success: true})
+        });
   
     } catch (err) {
       res.status(500).json({ message: err.message, success: false });
@@ -74,8 +75,9 @@ const sendOtp2 = async (req, res) => {
 
     client.messages
       .create({ body: `Your OTP verification code is ${otp}`, from: "+12762901463", to: phone})
-      .then(message => console.log(message.sid));
-          return res.status(200).json({message: 'OTP sent successfully.',success: true})
+      .then((message) => {
+        return res.status(200).json({message: 'OTP sent successfully.',success: true})
+      });
 
   } catch (err) {
     res.status(500).json({ message: err.message, success: false });
