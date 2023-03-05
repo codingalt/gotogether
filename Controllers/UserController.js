@@ -35,10 +35,9 @@ const sendOtp = async (req, res) => {
       const authToken = process.env.TWILIO_TOKEN;
       const client = require("twilio")(accountSid, authToken);
 
-      client.messages
+       client.messages
         .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
         .then((message) =>  {
-          console.log(message.sid);
           return res.status(200).json({message: 'OTP sent successfully.',success: true})
         });
   
@@ -74,7 +73,7 @@ const sendOtp2 = async (req, res) => {
     const authToken = process.env.TWILIO_TOKEN2;
     const client = require("twilio")(accountSid, authToken);
 
-    client.messages
+  client.messages
       .create({ body: `Your OTP verification code is ${otp}`, from: "+12762901463", to: phone})
       .then((message) => {
         return res.status(200).json({message: 'OTP sent successfully.',success: true})
