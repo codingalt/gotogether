@@ -54,9 +54,9 @@ const driverSchema = mongoose.Schema(
       vehicleRegisterCertificate: {
         type: String
       },
-      vehicleImages: [{
-        path: String
-      }],
+      vehicleImage: {
+        type: String
+      },
 
       liscenseDetails: [
         {
@@ -65,9 +65,12 @@ const driverSchema = mongoose.Schema(
             liscenseType: String
         }
       ],
-      liscenseImages: [{
-        path: String
-      }],
+      liscenseImgFront: {
+        type: String
+      },
+      liscenseImgBack: {
+        type: String
+      },
      
     },
     { timestamps: true }

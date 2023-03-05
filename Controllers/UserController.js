@@ -38,6 +38,7 @@ const sendOtp = async (req, res) => {
       client.messages
         .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
         .then((message) =>  {
+          console.log(message.sid);
           return res.status(200).json({message: 'OTP sent successfully.',success: true})
         });
   
@@ -134,6 +135,13 @@ const sendOtp2 = async (req, res) => {
         return res
           .status(422)
           .json({ message: "Email already exist", success: false });
+      }
+
+      const isUserId = await AuthModel.findById(userId);
+      if (!isUserId) {
+        return res
+          .status(422)
+          .json({ message: "Invalid UserId. Please provide correct user id", success: false });
       }
       const user = new UserModel({ name, email, city, gender, isDriver, profileImg,userId });
       const userRegister = await user.save();
