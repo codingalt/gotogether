@@ -11,7 +11,7 @@ const upload = multer({
             cb(null,'Uploads/driver/cnic')
         }else if(file.fieldname === 'vehicles' || file.fieldname === 'vehicleCertificate'){
             cb(null,'Uploads/driver/vehicles')
-        }else if(file.fieldname === 'liscenseimgfront' || file.fieldname === 'liscenseimgback'){
+        }else if(file.fieldname === 'liscenseimage'){
             cb(null,'Uploads/driver/liscense')
         }
       },
@@ -19,10 +19,10 @@ const upload = multer({
         cb(null,file.fieldname + "_" + Date.now()+".jpg")
       },
     })
-  }).fields([{name: 'cnicfront', maxCount: 1},{name: 'cnicback', maxCount: 1},{name: 'vehicles',maxCount:1},{name: 'vehicleCertificate', maxCount: 1},{name: 'liscenseimgfront', maxCount: 1},{name: 'liscenseimgback', maxCount: 1}])
+  }).fields([{name: 'cnicfront', maxCount: 1},{name: 'cnicback', maxCount: 1},{name: 'vehicles',maxCount:1},{name: 'vehicleCertificate', maxCount: 1},{name: 'liscenseimage', maxCount: 1}])
 
 router.post('/driver/register',upload,Authenticate, registerDriver);
-router.put('/driver/:userId', updateDriver)
+router.put('/driver/:userId',Authenticate,updateDriver)
 router.get('/driver/:userId', Authenticate,getDriverData);
 
 module.exports = router;

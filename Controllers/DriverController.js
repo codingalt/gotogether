@@ -14,18 +14,20 @@ const registerDriver = async (req, res) => {
       totalRating,
       profileStatus,
       residentialAddress,
-      vehicleDetails,
-      liscenseDetails,
+      vehicleType,
+      vehicleNumber,
+      vehicleBrand,
+      liscenseNumber,
+      liscenseExpiryDate,
     } = req.body;
 
     const cnicImgFront = req.files.cnicfront[0].filename;
     const cnicImgBack = req.files.cnicback[0].filename;
-    const liscenseImgFront = req.files.liscenseimgfront[0].filename;
-    const liscenseImgBack = req.files.liscenseimgback[0].filename;
+    const liscenseImage = req.files.liscenseimage[0].filename;
     const vehicleImage = req.files.vehicles[0].filename;
     const vehicleRegisterCertificate = req.files.vehicleCertificate[0].filename;
 
-    if(!userId || !fatherName || !birthDate || !cnic || !totalReviewsGiven || !totalRating || !residentialAddress || !vehicleDetails || !liscenseDetails){
+    if(!userId || !fatherName || !birthDate || !cnic || !totalReviewsGiven || !totalRating || !residentialAddress || !vehicleType || !vehicleNumber || !vehicleBrand || !liscenseNumber || !liscenseExpiryDate ){
         return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
     }
 
@@ -35,7 +37,7 @@ const registerDriver = async (req, res) => {
     }
     if(!isUser.isDriver){
         // Adding Driver
-        const driver = new DriverModel({userId,fatherName,birthDate,cnic,cnicImgFront,cnicImgBack,totalReviewsGiven,totalRating,profileStatus,residentialAddress,vehicleDetails,liscenseDetails,vehicleImage,liscenseImgFront,liscenseImgBack,vehicleRegisterCertificate})
+        const driver = new DriverModel({userId,fatherName,birthDate,cnic,cnicImgFront,cnicImgBack,totalReviewsGiven,totalRating,profileStatus,residentialAddress,vehicleType,vehicleNumber,vehicleBrand,liscenseNumber,liscenseExpiryDate,vehicleImage,liscenseImage,vehicleRegisterCertificate})
         const driverRegister = await driver.save();
 
         // Updating isDriver Property in User Table 

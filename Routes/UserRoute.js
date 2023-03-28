@@ -8,18 +8,17 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: function(req,file,cb){
       cb(null,'Uploads/profile')
-      console.log(file);
     },
     filename: function(req,file,cb){
       cb(null,file.fieldname + "_" + Date.now()+".jpg")
     }
   })
-}).single('profile')
+}).single('profileImg')
 
 router.post('/otp',sendOtp);
 router.post('/otp2',sendOtp2);
 router.post('/otp/verify',verifyOtp);
-router.post('/register',upload, registerUser);
+router.post('/register',upload,Authenticate ,registerUser);
 router.get('/user/:userId',Authenticate ,getUserData);
 
 module.exports = router;

@@ -15,7 +15,7 @@ const sendOtp = async (req, res) => {
       if (!phone) {
         return res
           .status(422)
-          .json({ message: "Mobile Number cannot be empty", success: false });
+          .json({ data: "Mobile Number cannot be empty", success: false });
       }
 
       // Generating OTP 
@@ -38,11 +38,11 @@ const sendOtp = async (req, res) => {
        client.messages
         .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
         .then((message) =>  {
-          return res.status(200).json({message: 'OTP sent successfully.',success: true})
+          return res.status(200).json({data: 'OTP sent successfully.',success: true})
         });
   
     } catch (err) {
-      res.status(500).json({ message: err.message, success: false });
+      res.status(500).json({ data: err.message, success: false });
     }
   };
 
@@ -93,6 +93,7 @@ const sendOtp2 = async (req, res) => {
     
     const rightOtpFind = otpHolder[otpHolder.length - 1];
     const validUser = await bcrypt.compare(req.body.otp, rightOtpFind.otp);
+    console.log(validUser);
 
     if(rightOtpFind.number === req.body.phone && validUser){
       const {phone} = req.body;

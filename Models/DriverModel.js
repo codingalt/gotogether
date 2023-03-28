@@ -1,80 +1,67 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const driverSchema = mongoose.Schema(
-    {
-      userId: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      fatherName: {
-        type: String,
-        required: true,
-      },
-      birthDate: {
-        type: String,
-        required: true,
-      },
-      cnic: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      cnicImgFront: {
-        type: String
-      },
-      cnicImgBack: {
-        type: String
-      },
-      totalReviewsGiven: {
-        type: Number,
-        required: true,
-      },
-      totalRating: {
-        type: Number,
-        required: true
-      },
-      profileStatus: {
-        type: Boolean,
-        default: false
-      },
-      residentialAddress: {
-        type: String,
-        required: true,
-      },
-      vehicleDetails: [
-        {
-            vehicleType: String,
-            vehicleNumber: String,
-            vehicleColor: String,
-            vehicleBrand: String,
-            vehicleSeats: Number,
-        }
-      ],
-      vehicleRegisterCertificate: {
-        type: String
-      },
-      vehicleImage: {
-        type: String
-      },
-
-      liscenseDetails: [
-        {
-            liscenseNumber: String,
-            liscenseExpiryDate: String,
-            liscenseType: String
-        }
-      ],
-      liscenseImgFront: {
-        type: String
-      },
-      liscenseImgBack: {
-        type: String
-      },
-     
+  {
+    userId: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    { timestamps: true }
-  );
+    fatherName: {
+      type: String,
+      required: true,
+    },
+    birthDate: {
+      type: String,
+      required: true,
+    },
+    cnic: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    cnicImgFront: {
+      type: String,
+    },
+    cnicImgBack: {
+      type: String,
+    },
+    totalReviewsGiven: {
+      type: Number,
+      required: true,
+    },
+    totalRating: {
+      type: Number,
+      required: true,
+    },
+    profileStatus: {
+      type: Boolean,
+      default: false,
+    },
+    residentialAddress: {
+      type: String,
+      required: true,
+    },
+    vehicleType: String,
+    vehicleNumber: String,
+    vehicleBrand: String,
+
+    vehicleRegisterCertificate: {
+      type: String,
+    },
+    vehicleImage: {
+      type: String,
+    },
+    liscenseNumber: String,
+    liscenseExpiryDate: String,
+
+    liscenseImage: {
+      type: String,
+    },
   
-  const DriverModel = mongoose.model("Drivers", driverSchema);
-  module.exports = DriverModel;
+  },
+  { timestamps: true }
+);
+
+const DriverModel = mongoose.model("Drivers", driverSchema);
+module.exports = DriverModel;
