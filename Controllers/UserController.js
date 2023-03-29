@@ -30,16 +30,17 @@ const sendOtp = async (req, res) => {
       const newOtp = new OtpModel({number: phone,otp: otp});
       newOtp.otp = await bcrypt.hash(newOtp.otp,12);
       const result = await newOtp.save();
+      return res.status(200).json({data: 'OTP sent successfully.',success: true})
 
-      const accountSid = process.env.TWILIO_SID;
-      const authToken = process.env.TWILIO_TOKEN;
-      const client = require("twilio")(accountSid, authToken);
+      // const accountSid = process.env.TWILIO_SID;
+      // const authToken = process.env.TWILIO_TOKEN;
+      // const client = require("twilio")(accountSid, authToken);
 
-       client.messages
-        .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
-        .then((message) =>  {
-          return res.status(200).json({data: 'OTP sent successfully.',success: true})
-        });
+      //  client.messages
+      //   .create({ body: `Your OTP verification code is ${otp}`, from: "+12765337560", to: phone})
+      //   .then((message) =>  {
+      //     return res.status(200).json({data: 'OTP sent successfully.',success: true})
+      //   });
   
     } catch (err) {
       res.status(500).json({ data: err.message, success: false });
@@ -93,25 +94,39 @@ const sendOtp2 = async (req, res) => {
     
     const rightOtpFind = otpHolder[otpHolder.length - 1];
     const validUser = await bcrypt.compare(req.body.otp, rightOtpFind.otp);
-    console.log(validUser);
 
     if(rightOtpFind.number === req.body.phone && validUser){
       const {phone} = req.body;
       const user = new AuthModel(_.pick(req.body, ["phone"]));
       const isUser = await AuthModel.findOne({phone: phone});
-
+      console.log('Auth User',isUser);
       if(isUser){
       //Generating JSON web token
        const token = await isUser.generateAuthToken();
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
-       return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfile: true})
+
+      //  Checking if user profile is already created  
+       const isProfile = await UserModel.findOne({ userId: isUser._id });
+       if(isProfile){
+         return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true})
+       }else{
+        return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: false})
+       }
 
       }else{
         //Generating JSON web token
        const token = await user.generateAuthToken();
         const result = await user.save();
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
-       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfile: false})
+
+       //  Checking if user profile is already created  
+       const isProfile = await UserModel.findOne({ userId: isUser._id });
+       if(isProfile){
+       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: true})
+       }else{
+       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false})
+       }
+
       }
 
        
