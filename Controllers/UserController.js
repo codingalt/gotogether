@@ -69,16 +69,17 @@ const sendOtp2 = async (req, res) => {
     const newOtp = new OtpModel({number: phone,otp: otp});
     newOtp.otp = await bcrypt.hash(newOtp.otp,12);
     const result = await newOtp.save();
+    return res.status(200).json({data: 'OTP sent successfully.',success: true})
 
-    const accountSid = process.env.TWILIO_SID2;
-    const authToken = process.env.TWILIO_TOKEN2;
-    const client = require("twilio")(accountSid, authToken);
+  //   const accountSid = process.env.TWILIO_SID2;
+  //   const authToken = process.env.TWILIO_TOKEN2;
+  //   const client = require("twilio")(accountSid, authToken);
 
-  client.messages
-      .create({ body: `Your OTP verification code is ${otp}`, from: "+12762901463", to: phone})
-      .then((message) => {
-        return res.status(200).json({message: 'OTP sent successfully.',success: true})
-      });
+  // client.messages
+  //     .create({ body: `Your OTP verification code is ${otp}`, from: "+12762901463", to: phone})
+  //     .then((message) => {
+  //       return res.status(200).json({message: 'OTP sent successfully.',success: true})
+  //     });
 
   } catch (err) {
     res.status(500).json({ message: err.message, success: false });
@@ -145,11 +146,18 @@ const sendOtp2 = async (req, res) => {
           .json({ message: "Please fill out all the fileds properly.", success: false });
       }
   
-      const userExist = await UserModel.findOne({ email: email });
+      const userExist = await UserModel.findOne({ email: email.toLowerCase() });
       if (userExist) {
         return res
           .status(422)
           .json({ message: "Email already exist", success: false });
+      }
+
+      const isUserIdExist = await UserModel.findOne({ userId: userId });
+      if (isUserIdExist) {
+        return res
+          .status(422)
+          .json({ message: "Your Profile is Already Created", success: false });
       }
 
       const isUserId = await AuthModel.findById(userId);

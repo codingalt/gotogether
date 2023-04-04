@@ -8,7 +8,6 @@ const Authenticate = async (req, res, next) => {
     if(typeof bearerToken !== 'undefined'){
       const bearer = bearerToken.split(' ');
       const jwtToken = bearer[1];
-      console.log('Bearer',jwtToken);
     
     const verifyToken = jwt.verify(jwtToken, process.env.SECRET_KEY);
     const rootUser = await AuthModel.findOne({
