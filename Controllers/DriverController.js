@@ -31,7 +31,7 @@ const registerDriver = async (req, res) => {
         return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
     }
 
-    const isUser = await UserModel.findById(userId);
+    const isUser = await UserModel.find({userId});
     if(!isUser){
        return res.status(401).json({message: "Record not Found.",success: false})
     }
