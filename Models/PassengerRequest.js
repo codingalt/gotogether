@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const passengerRequestSchema = mongoose.Schema(
     {
-      driverId: {
-        type: String,
-        required: true,
-      },
       passengerId: {
         type: String,
         required: true,
@@ -41,10 +37,6 @@ const passengerRequestSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      journeyStatus: {
-        type: String,
-        default: 'idle',
-      }
      
     },
     { timestamps: true }

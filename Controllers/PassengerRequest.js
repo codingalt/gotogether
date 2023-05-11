@@ -4,8 +4,8 @@ const PassengerRequestModel = require('../Models/PassengerRequest');
 
 const postRequest = async (req,res) =>{
     try {
-        const {driverId,passengerId,campaignId,startLocation,endingLocation,requireSeats,costPerSeat,comment,requestStatus,rideType,journeyStatus} = req.body;
-        if(!driverId || !passengerId || !campaignId || !startLocation || !endingLocation || !requireSeats || !costPerSeat || !rideType){
+        const {passengerId,campaignId,startLocation,endingLocation,requireSeats,costPerSeat,comment,requestStatus,rideType} = req.body;
+        if(!passengerId || !campaignId || !startLocation || !endingLocation || !requireSeats || !costPerSeat || !rideType){
             return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
         }
 
@@ -20,7 +20,7 @@ const postRequest = async (req,res) =>{
         }
 
         // Adding Passenger Request 
-        const newRequest = new PassengerRequestModel({driverId,passengerId,campaignId,startLocation,endingLocation,requireSeats,costPerSeat,comment,requestStatus,rideType,journeyStatus});
+        const newRequest = new PassengerRequestModel({passengerId,campaignId,startLocation,endingLocation,requireSeats,costPerSeat,comment,requestStatus,rideType});
         const postRequest = await newRequest.save();
 
         // Updating Booked Seat of Driver Campaign 

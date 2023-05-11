@@ -4,12 +4,12 @@ const DriverCampaignModel = require('../Models/DriverCampaign');
 const postCampaign = async (req,res) => {
     try {
         console.log(req.body);
-        const {driverId,startLocation,endingLocation,dateTime,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment} = req.body;
-        if(!driverId || !startLocation || !endingLocation || !dateTime || rideRules === null || !seatCostPerKm || !availableSeats || !vehicleType || !rideType || bookedSeats === null){
+        const {driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment,status} = req.body;
+        if(!driverId || !startLocation || !endingLocation || !date || !time || rideRules === null || !seatCostPerKm || !availableSeats || !vehicleType || !rideType){
             return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
         }
 
-        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,dateTime,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment})
+        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment,status})
         const campaign = await newCampaign.save();
         if(campaign){
             res.status(200).json({campaign: campaign,success: true});
@@ -43,6 +43,23 @@ const getAllCampaigns = async (req,res) =>{
     }
 }
 
+// Update Campaign Status
+const updateCampaignStatus = async (req,res) =>{
+    try {
+        const campaignId = req.params.campaignId;
+        const {status} = req.body;
+   
+       const result = await DriverCampaignModel.findByIdAndUpdate(campaignId,{status: status},{
+            new: true,
+            useFindAndModify: false,
+        });
+        res.status(200).json({result,success: true});
+        
+    } catch (err) {
+    res.status(500).json({ message: err.message, success: false });
+    }
+}
+
 // Get Campaigns within Specific Range 
 
-module.exports = {postCampaign,getCampaignsByDriverId,getAllCampaigns}
+module.exports = {postCampaign,getCampaignsByDriverId,getAllCampaigns,updateCampaignStatus}

@@ -3,7 +3,6 @@ const DriverModel = require("../Models/DriverModel");
 const UserModel = require("../Models/UserModel");
 
 const registerDriver = async (req, res) => {
-  // console.log(req.files);
   try {
     const {
       userId,

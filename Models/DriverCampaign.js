@@ -14,7 +14,11 @@ const driverCampaignSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      dateTime: {
+      date: {
+        type: String,
+        required: true,
+      },
+      time: {
         type: String,
         required: true,
       },
@@ -43,8 +47,13 @@ const driverCampaignSchema = mongoose.Schema(
       },
       bookedSeats: {
         type: Number,
+        default: 0,
         required: true,
       },
+      status: {
+        type: Number,
+        default: 0
+      }
      
     },
     { timestamps: true }

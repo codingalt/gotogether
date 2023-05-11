@@ -7,6 +7,7 @@ const _ = require('lodash')
 const otpGenerator = require('otp-generator');
 const OtpModel = require("../Models/OtpModel");
 const AuthModel = require("../Models/AuthModel");
+const DriverModel = require("../Models/DriverModel");
 
 //SendOtp Route
 const sendOtp = async (req, res) => {
@@ -99,19 +100,25 @@ const sendOtp2 = async (req, res) => {
     if(rightOtpFind.number === req.body.phone && validUser){
       const {phone} = req.body;
       const user = new AuthModel(_.pick(req.body, ["phone"]));
-      const isUser = await AuthModel.findOne({phone: phone});
-      console.log('Auth User',isUser);
+      const isUser = await AuthModel.findOne({phone: phone}) 
       if(isUser){
       //Generating JSON web token
        const token = await isUser.generateAuthToken();
+       console.log(token);
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
 
       //  Checking if user profile is already created  
        const isProfile = await UserModel.findOne({ userId: isUser._id });
+       if(isProfile.isDriver){
+        var isDriverProfile = await DriverModel.findOne({userId: isUser._id})
+      }
+      const isDriverProfileCreated = isDriverProfile ? true : false;
+      const isDriver = isProfile.isDriver ? true : false;
+       console.log(isDriverProfile);
        if(isProfile){
-         return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true})
+         return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true,isDriver,isDriverProfileCreated})
        }else{
-        return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: false})
+        return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: false,isDriver,isDriverProfileCreated})
        }
 
       }else{
@@ -121,12 +128,12 @@ const sendOtp2 = async (req, res) => {
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
 
        //  Checking if user profile is already created  
-       const isProfile = await UserModel.findOne({ userId: isUser._id });
-       if(isProfile){
-       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: true})
-       }else{
+        // const isProfile = await UserModel.findOne({ userId: isUser._id });
+      //  if(isProfile){
        return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false})
-       }
+      //  }else{
+      //  return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false})
+      //  }
 
       }
 
