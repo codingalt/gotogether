@@ -104,17 +104,15 @@ const sendOtp2 = async (req, res) => {
       if(isUser){
       //Generating JSON web token
        const token = await isUser.generateAuthToken();
-       console.log(token);
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
 
       //  Checking if user profile is already created  
        const isProfile = await UserModel.findOne({ userId: isUser._id });
-       if(isProfile.isDriver){
+       if(isProfile?.isDriver){
         var isDriverProfile = await DriverModel.findOne({userId: isUser._id})
       }
       const isDriverProfileCreated = isDriverProfile ? true : false;
-      const isDriver = isProfile.isDriver ? true : false;
-       console.log(isDriverProfile);
+      const isDriver = isProfile?.isDriver ? true : false;
        if(isProfile){
          return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true,isDriver,isDriverProfileCreated})
        }else{
@@ -127,13 +125,7 @@ const sendOtp2 = async (req, res) => {
         const result = await user.save();
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
 
-       //  Checking if user profile is already created  
-        // const isProfile = await UserModel.findOne({ userId: isUser._id });
-      //  if(isProfile){
-       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false})
-      //  }else{
-      //  return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false})
-      //  }
+       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false,isDriver: false, isDriverProfileCreated: false})
 
       }
 
