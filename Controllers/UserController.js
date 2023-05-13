@@ -114,9 +114,9 @@ const sendOtp2 = async (req, res) => {
       const isDriverProfileCreated = isDriverProfile ? true : false;
       const isDriver = isProfile?.isDriver ? true : false;
        if(isProfile){
-         return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true,isDriver,isDriverProfileCreated})
+         return res.status(200).json({success: true,message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: true,isDriver,isDriverProfileCreated})
        }else{
-        return res.status(200).json({message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: false,isDriver,isDriverProfileCreated})
+        return res.status(200).json({success: true,message:'OTP Authenticated Successfully.',data: isUser,userId: isUser._id,token: token,isProfileCreated: false,isDriver,isDriverProfileCreated})
        }
 
       }else{
@@ -125,7 +125,7 @@ const sendOtp2 = async (req, res) => {
         const result = await user.save();
        const otpDelete = await OtpModel.deleteMany({number: rightOtpFind.number});
 
-       return res.status(200).json({message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false,isDriver: false, isDriverProfileCreated: false})
+       return res.status(200).json({success: true,message:'OTP Authenticated Successfully.',data: result,userId: result._id,token: token,isProfileCreated: false,isDriver: false, isDriverProfileCreated: false})
 
       }
 
