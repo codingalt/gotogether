@@ -24,31 +24,23 @@ const driverCampaignSchema = mongoose.Schema(
       },
       rideRules: {
             isSmoke: Boolean,
-            isMusic: Boolean
+            isMusic: Boolean,
+            isAc: Boolean
       },
       comment: {
         type: String,
       },
       seatCostPerKm: {
-        type: Number,
-        required: true,
-      },
-      availableSeats: {
-        type: Number,
-        required: true,
-      },
-      vehicleType: {
         type: String,
         required: true,
       },
-      rideType: {
+      availableSeats: {
         type: String,
         required: true,
       },
       bookedSeats: {
         type: Number,
         default: 0,
-        required: true,
       },
       status: {
         type: Number,

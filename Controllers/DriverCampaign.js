@@ -4,12 +4,12 @@ const DriverCampaignModel = require('../Models/DriverCampaign');
 const postCampaign = async (req,res) => {
     try {
         console.log(req.body);
-        const {driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment,status} = req.body;
-        if(!driverId || !startLocation || !endingLocation || !date || !time || rideRules === null || !seatCostPerKm || !availableSeats || !vehicleType || !rideType){
+        const {driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,comment} = req.body;
+        if(!driverId || !startLocation || !endingLocation || !date || !time || rideRules === null || !seatCostPerKm || !availableSeats){
             return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
         }
 
-        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,vehicleType,rideType,bookedSeats,comment,status})
+        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,comment})
         const campaign = await newCampaign.save();
         if(campaign){
             res.status(200).json({campaign: campaign,success: true});
