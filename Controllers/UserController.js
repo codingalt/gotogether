@@ -138,6 +138,7 @@ const sendOtp2 = async (req, res) => {
 
   const registerUser = async (req,res) =>{
     const profileImg = (req.file) ? req.file.filename : null;
+    console.log(req.body);
     try {
       const { name, email, city, gender, isDriver,userId} = req.body;
       if (!name || !email || !city || !gender || isDriver === null || isDriver === undefined || !userId) {
