@@ -35,7 +35,43 @@ const getCampaignsByDriverId = async (req,res) =>{
 // Get All Campaigns
 const getAllCampaigns = async (req,res) =>{
     try {
-        const campaigns = await DriverCampaignModel.find();
+        // const campaigns = await DriverCampaignModel.find();
+        const campaigns = await DriverCampaignModel.aggregate([{
+            $lookup: {
+                from: 'users',
+                localField: 'driverId',
+                foreignField: 'userId',
+                as: 'userData'
+            }
+        },
+        {
+            $unwind: '$userData'
+        },
+        {
+            $lookup: {
+                from: 'drivers',
+                localField: 'driverId',
+                foreignField: 'userId',
+                as: 'Rating'
+            }
+        },
+        {
+            $unwind: "$Rating"
+        },
+        {
+            $addFields: {
+                "userName": "$userData.name",
+                "profileImg": "$userData.profileImg",
+                "rating": "$Rating.totalRating"
+            }
+        },
+        {
+            $project: {
+                userData: 0,
+                Rating: 0
+            }
+        }
+    ]);
         res.status(200).json({campaigns: campaigns,success: true})
         
     } catch (err) {

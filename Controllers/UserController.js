@@ -223,8 +223,107 @@ const sendOtp2 = async (req, res) => {
   const getUserData = async (req, res) => {
     try {
       const userId = req.params.userId;
-      const user = await UserModel.find({userId});
-      res.status(200).json({ data: user, success: true });
+      const isDriver = await UserModel.find({userId});
+      const isDriverProfileCreated = await DriverModel.find({userId});
+      console.log(isDriverProfileCreated);
+      if(isDriver[0].isDriver){
+        if(isDriverProfileCreated.length === 0){
+          res.status(401).json({message: 'You are driver but your driver profile is not created! Please setup your driver profile first', success: false})
+          return;
+        }
+      }
+      
+      if(isDriver[0].isDriver){
+        const user = await UserModel.aggregate([
+          {
+            $match: {
+              userId:userId,
+            }
+          },
+          {
+            $lookup: {
+              from: 'drivers',
+              localField: 'userId',
+              foreignField: 'userId',
+              as: 'DriverData'
+            }
+          },
+          {
+            $unwind: "$DriverData"
+          },
+          {
+            $addFields: {
+                convertedId: { $toObjectId: "$userId" }
+            }
+        },
+          {
+            $lookup: {
+              from: 'auths',
+              localField: 'convertedId',
+              foreignField: '_id',
+              as: 'Phone'
+            }
+          },
+          {
+            $unwind: "$Phone"
+          },
+          {
+            $addFields: {
+              "totalRating": "$DriverData.totalRating",
+              "totalReviewsGiven": "$DriverData.totalReviewsGiven",
+              "fatherName": "$DriverData.fatherName",
+              "liscenseExpiryDate": "$DriverData.liscenseExpiryDate",
+              "phone": "$Phone.phone"
+            }
+          },
+          {
+            $project: {
+              DriverData: 0,
+              Phone: 0,
+              convertedId: 0
+            }
+          }
+        ]);
+        res.status(200).json({ data: user, success: true });
+
+      }else{
+        const user = await UserModel.aggregate([
+          {
+            $match: {
+              userId:userId,
+            }
+          },
+          {
+            $addFields: {
+                convertedId: { $toObjectId: "$userId" }
+            }
+        },
+          {
+            $lookup: {
+              from: 'auths',
+              localField: 'convertedId',
+              foreignField: '_id',
+              as: 'Phone'
+            }
+          },
+          {
+            $unwind: "$Phone"
+          },
+          {
+            $addFields: {
+              "phone": "$Phone.phone"
+            }
+          },
+          {
+            $project: {
+              Phone: 0,
+              convertedId: 0
+            }
+          }
+        ]);
+        res.status(200).json({ data: user, success: true });
+      }
+     
     } catch (error) {
       res.status(500).json(error);
     }
