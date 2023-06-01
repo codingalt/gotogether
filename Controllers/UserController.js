@@ -20,13 +20,13 @@ const sendOtp = async (req, res) => {
       }
 
       // Generating OTP 
-      // const otp = otpGenerator.generate(4,{
-      //   digits: true,
-      //   lowerCaseAlphabets: false,
-      //   upperCaseAlphabets: false,
-      //   specialChars: false
-      // });
-      const otp = 6765;
+      const otp = otpGenerator.generate(4,{
+        digits: true,
+        lowerCaseAlphabets: false,
+        upperCaseAlphabets: false,
+        specialChars: false
+      });
+      // const otp = 6765;
       console.log('OTP',otp);
 
       const newOtp = new OtpModel({number: phone,otp: otp});

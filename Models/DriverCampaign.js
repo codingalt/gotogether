@@ -34,6 +34,14 @@ const driverCampaignSchema = mongoose.Schema(
         type: String,
         required: true,
       },
+      expectedRideDistance: {
+        type: String,
+        required: true
+      },
+      expectedRideTime: {
+        type: String,
+        required: true
+      },
       availableSeats: {
         type: String,
         required: true,
