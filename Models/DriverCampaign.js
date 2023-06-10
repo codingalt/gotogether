@@ -30,7 +30,7 @@ const driverCampaignSchema = mongoose.Schema(
       comment: {
         type: String,
       },
-      seatCostPerKm: {
+      seatCost: {
         type: String,
         required: true,
       },

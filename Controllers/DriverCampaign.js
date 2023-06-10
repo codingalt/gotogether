@@ -3,13 +3,12 @@ const DriverCampaignModel = require('../Models/DriverCampaign');
 
 const postCampaign = async (req,res) => {
     try {
-        console.log(req.body);
-        const {driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,comment,expectedRideDistance,expectedRideTime} = req.body;
-        if(!driverId || !startLocation || !endingLocation || !date || !time || rideRules === null || !seatCostPerKm || !availableSeats || !expectedRideDistance || !expectedRideTime){
+        const {driverId,startLocation,endingLocation,date,time,rideRules,seatCost,availableSeats,comment,expectedRideDistance,expectedRideTime} = req.body;
+        if(!driverId || !startLocation || !endingLocation || !date || !time || rideRules === null || !seatCost || !availableSeats || !expectedRideDistance || !expectedRideTime){
             return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})
         }
 
-        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,date,time,rideRules,seatCostPerKm,availableSeats,comment,expectedRideDistance,expectedRideTime})
+        const newCampaign = new DriverCampaignModel({driverId,startLocation,endingLocation,date,time,rideRules,seatCost,availableSeats,comment,expectedRideDistance,expectedRideTime})
         const campaign = await newCampaign.save();
         if(campaign){
             res.status(200).json({campaign: campaign,success: true});
@@ -65,23 +64,30 @@ const getAllCampaigns = async (req,res) =>{
                 from: 'drivers',
                 localField: 'driverId',
                 foreignField: 'userId',
-                as: 'Rating'
+                as: 'Driver'
             }
         },
         {
-            $unwind: "$Rating"
+            $unwind: "$Driver"
         },
         {
             $addFields: {
-                "userName": "$userData.name",
+                "name": "$userData.name",
                 "profileImg": "$userData.profileImg",
-                "rating": "$Rating.totalRating"
+                "city": "$userData.city",
+                "gender": "$userData.gender",
+                "totalRating": "$Driver.totalRating",
+                "totalReviewsGiven": "$Driver.totalReviewsGiven",
+                "vehicleType": "$Driver.vehicleType",
+                "vehicleBrand": "$Driver.vehicleBrand",
+                "vehicleNumber": "$Driver.vehicleNumber",
+                "vehicleImage": "$Driver.vehicleImage",
             }
         },
         {
             $project: {
                 userData: 0,
-                Rating: 0
+                Driver: 0
             }
         }
     ]);
