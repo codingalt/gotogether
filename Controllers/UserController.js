@@ -26,7 +26,7 @@ const sendOtp = async (req, res) => {
         upperCaseAlphabets: false,
         specialChars: false
       });
-      // const otp = 6765;
+//       const otp = 6765;
       console.log('OTP',otp);
 
       const newOtp = new OtpModel({number: phone,otp: otp});
