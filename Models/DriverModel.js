@@ -29,10 +29,12 @@ const driverSchema = mongoose.Schema(
     totalReviewsGiven: {
       type: Number,
       required: true,
+      default:1
     },
     totalRating: {
       type: Number,
       required: true,
+      default:5
     },
     profileStatus: {
       type: Boolean,

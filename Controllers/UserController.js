@@ -179,47 +179,6 @@ const sendOtp2 = async (req, res) => {
       res.status(500).json({ message: err.message, success: false });
     }
   }
-
-  //Login Route
-// const loginUser = async (req, res) => {
-//     try {
-//       let token;
-//       const { email, password } = req.body;
-//       if (!email || !password) {
-//         return res
-//           .status(400)
-//           .json({ message: "Email or Password cannot be empty", success: false });
-//       }
-//       const signin = await UserModel.findOne({ email: email });
-//       if (signin) {
-//         const isMatch = await bcrypt.compare(password, signin.password);
-//         if (isMatch) {
-//           //Generating JSON web token
-//           token = await signin.generateAuthToken();
-//           res.cookie("jwtoken", token, {
-//             expires: new Date(Date.now() + 2592000000),
-//             httpOnly: true,
-//           });
-//           res.status(200).json({ message: "Login Successfully", success: true,token: token });
-//         } else {
-//           res
-//             .status(400)
-//             .json({ message: "Invalid login details", success: false });
-//         }
-//       } else {
-//         res
-//           .status(404)
-//           .json({ message: "Invalid login details", success: false });
-//       }
-//     } catch (error) {
-//       res
-//         .status(500)
-//         .json({
-//           message: "Something went wrong Please try again",
-//           success: false,
-//         });
-//     }
-//   };
   
   const getUserData = async (req, res) => {
     try {
@@ -274,7 +233,8 @@ const sendOtp2 = async (req, res) => {
               "totalReviewsGiven": "$DriverData.totalReviewsGiven",
               "fatherName": "$DriverData.fatherName",
               "liscenseExpiryDate": "$DriverData.liscenseExpiryDate",
-              "phone": "$Phone.phone"
+              "phone": "$Phone.phone",
+              "vehicleType": "$DriverData.vehicleType"
             }
           },
           {

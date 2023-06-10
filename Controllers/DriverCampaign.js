@@ -24,8 +24,21 @@ const postCampaign = async (req,res) => {
 const getCampaignsByDriverId = async (req,res) =>{
     try {
         const driverId = req.params.driverId;
-        const campaigns = await DriverCampaignModel.find({driverId: driverId});
+        const campaigns = await DriverCampaignModel.find({driverId: driverId,status:0});
         res.status(200).json({campaigns: campaigns,success: true})
+        
+    } catch (err) {
+    res.status(500).json({ message: err.message, success: false });
+    }
+}
+
+// Get Campaigns By Id 
+const getCampaignsById = async (req,res) =>{
+    try {
+        const campaignId = req.params.id;
+        const campaign = await DriverCampaignModel.findById(campaignId);
+        // const campaign = await DriverCampaignModel.aggregate([])
+        res.status(200).json({campaign: campaign,success: true})
         
     } catch (err) {
     res.status(500).json({ message: err.message, success: false });
@@ -98,4 +111,4 @@ const updateCampaignStatus = async (req,res) =>{
 
 // Get Campaigns within Specific Range 
 
-module.exports = {postCampaign,getCampaignsByDriverId,getAllCampaigns,updateCampaignStatus}
+module.exports = {postCampaign,getCampaignsByDriverId,getAllCampaigns,updateCampaignStatus,getCampaignsById}
