@@ -185,7 +185,6 @@ const sendOtp2 = async (req, res) => {
       const userId = req.params.userId;
       const isDriver = await UserModel.find({userId});
       const isDriverProfileCreated = await DriverModel.find({userId});
-      console.log(isDriverProfileCreated);
       if(isDriver[0].isDriver){
         if(isDriverProfileCreated.length === 0){
           res.status(401).json({message: 'You are driver but your driver profile is not created! Please setup your driver profile first', success: false})

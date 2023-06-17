@@ -43,7 +43,8 @@ const driverCampaignSchema = mongoose.Schema(
         required: true
       },
       availableSeats: {
-        type: String,
+        type: Number,
+        trim: true,
         required: true,
       },
       bookedSeats: {

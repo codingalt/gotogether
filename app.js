@@ -28,6 +28,7 @@ const corsOptions = {
   app.use(require("./Routes/DriverRoute"));
   app.use(require("./Routes/DriverCampaign"));
   app.use(require("./Routes/PassengerRequest"));
+  app.use(require("./Routes/ChatRoute"));
 
   app.get('/',(req,res) =>{
     res.send('API is Running Successfully.')

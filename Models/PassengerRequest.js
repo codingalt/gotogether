@@ -10,14 +10,6 @@ const passengerRequestSchema = mongoose.Schema(
         type: String,
         required: true,
       },
-      startLocation: {
-        type: String,
-        required: true,
-      },
-      endingLocation: {
-        type: String,
-        required: true,
-      },
       requireSeats: {
         type: Number,
         required: true,
@@ -26,16 +18,9 @@ const passengerRequestSchema = mongoose.Schema(
         type: Number,
         required: true,
       },
-      comment: {
-        type: String,
-      },
       requestStatus: {
         type: String,
         default: 'pending'
-      },
-      rideType: {
-        type: String,
-        required: true,
       },
      
     },
