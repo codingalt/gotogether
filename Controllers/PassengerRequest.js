@@ -113,4 +113,18 @@ const approvePassengerRequest = async (req, res) => {
   }
 };
 
-module.exports = { postRequest, approvePassengerRequest };
+// Get All Passenger Requests  
+const getPassengerRequests = async (req,res) =>{
+    try {
+      const {campaignId} = req.params;
+        const passengerRequests = await PassengerRequestModel.find({
+          campaignId,
+        });
+        res.status(200).json({requests: passengerRequests,success: true})
+        
+    } catch (err) {
+    res.status(500).json({ message: err.message, success: false });
+    }
+}
+
+module.exports = { postRequest, approvePassengerRequest, getPassengerRequests };
