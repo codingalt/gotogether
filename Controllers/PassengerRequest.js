@@ -117,9 +117,42 @@ const approvePassengerRequest = async (req, res) => {
 const getPassengerRequests = async (req,res) =>{
     try {
       const {campaignId} = req.params;
-        const passengerRequests = await PassengerRequestModel.find({
-          campaignId,
-        });
+        const passengerRequests = await PassengerRequestModel.aggregate([
+          {
+            $match: {
+              campaignId: campaignId,
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "passengerId",
+              foreignField: "userId",
+              as: "UserData",
+            },
+          },
+          {
+            $unwind: "$UserData",
+          },
+          {
+            $addFields: {
+              convertedId: { $toObjectId: "$userId" },
+            },
+          },
+          
+          {
+            $addFields: {
+              name: "$UserData.name",
+              profileImg: "$UserData.profileImg"
+            },
+          },
+          {
+            $project: {
+              UserData: 0,
+              convertedId: 0,
+            },
+          },
+        ]);
         res.status(200).json({requests: passengerRequests,success: true})
         
     } catch (err) {
