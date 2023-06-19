@@ -136,20 +136,34 @@ const getPassengerRequests = async (req,res) =>{
           },
           {
             $addFields: {
-              convertedId: { $toObjectId: "$userId" },
+              convertedId: { $toObjectId: "$passengerId" },
             },
           },
-          
+          {
+            $lookup: {
+              from: "auths",
+              localField: "convertedId",
+              foreignField: "_id",
+              as: "Phone",
+            },
+          },
+          {
+            $unwind: "$Phone",
+          },
           {
             $addFields: {
               name: "$UserData.name",
-              profileImg: "$UserData.profileImg"
+              profileImg: "$UserData.profileImg",
+              city: "$UserData.city",
+              phone: "$Phone.phone",
             },
           },
+
           {
             $project: {
               UserData: 0,
               convertedId: 0,
+              Phone: 0,
             },
           },
         ]);
