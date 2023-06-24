@@ -289,4 +289,19 @@ const sendOtp2 = async (req, res) => {
     }
   };
 
-  module.exports = {sendOtp,sendOtp2,getUserData,verifyOtp,registerUser}
+  const uploadVideoFn = async(req,res)=>{
+    try {
+      res.send(req.file)
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  module.exports = {
+    sendOtp,
+    sendOtp2,
+    getUserData,
+    verifyOtp,
+    registerUser,
+    uploadVideoFn,
+  };

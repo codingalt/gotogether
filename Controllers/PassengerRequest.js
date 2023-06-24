@@ -91,7 +91,7 @@ const approvePassengerRequest = async (req, res) => {
     await PassengerRequestModel.findByIdAndUpdate(
       passengerRequestId,
       {
-        requestStatus: 'approved',
+        requestStatus: 'accepted',
       },
       {
         new: true,
@@ -112,6 +112,27 @@ const approvePassengerRequest = async (req, res) => {
     res.status(500).json({ message: err.message, success: false });
   }
 };
+
+// Decline Passenger Request
+const declineRequest = async(req,res)=>{
+  try {
+    const {requestId} = req.params;
+    await PassengerRequestModel.findByIdAndUpdate(
+      requestId,
+      {
+        requestStatus: 'decline',
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    res.status(200).json({message: 'Request Declined Successfully.', success: true})
+    
+  } catch (err) {
+    res.status(500).json({ message: err.message, success: false });
+  }
+}
 
 // Get All Passenger Requests  
 const getPassengerRequests = async (req,res) =>{
@@ -174,4 +195,9 @@ const getPassengerRequests = async (req,res) =>{
     }
 }
 
-module.exports = { postRequest, approvePassengerRequest, getPassengerRequests };
+module.exports = {
+  postRequest,
+  approvePassengerRequest,
+  getPassengerRequests,
+  declineRequest,
+};
