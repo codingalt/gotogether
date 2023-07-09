@@ -19,7 +19,6 @@ const chatSchema = mongoose.Schema(
     ],
     latestMessage: {
       type: String,
-      required: true
     },
     name: {
       type: String,
