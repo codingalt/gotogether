@@ -1,0 +1,50 @@
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1536px;
+$primary: #3784FB;
+$primary2: #1563d9;
+$secondary: #515BDC;
+$green: #499C3C;
+$lightgreen: #A5C4A7;
+$secondary-white: #E7E7E7;
+$text-primary: #212121;
+$text-primary2: #555;
+$star: #FDCC0D;
+
+@mixin flexCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexBetween{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin lato{
+    font-family: 'Lato', sans-serif;
+}
+
+@mixin button($width: 12rem, $height: 3rem, $background: $primary){
+    width: $width;
+    height: $height;
+    border-radius: 3rem;
+    font-size: 1.13rem;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    text-transform: capitalize;
+    background-color: $background;
+    transition: all .3s;
+    box-shadow: 6px 17px 28px -6px rgba(55,132,251,0.19) !important;
+}

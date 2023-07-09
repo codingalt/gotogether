@@ -1,0 +1,380 @@
+@import "../../styles/constants.scss";
+.flexCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding: 2.7rem 1rem;
+  flex-direction: column;
+  margin: auto;
+  @include flexCenter;
+  justify-content: flex-start;
+
+  .shape1{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    background: #fb8500;
+    filter: blur(120px);
+    opacity: .45;
+  }
+
+  .shape2{
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 10rem;
+    height: 10rem;
+    background: #2192FF;
+    background: #e8521e;
+    filter: blur(120px);
+    opacity: .45;
+  }
+
+  .shape3{
+    position: absolute;
+    top: 80px;
+    left: 140px;
+    width: 7rem;
+    height: 7rem;
+    background: #9CFF2E;
+    background: #2192FF;
+    filter: blur(120px);
+    opacity: .7;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .inputError {
+    color: #e8521e !important;
+    font-size: 0.9rem !important;
+    margin-top: 5px !important;
+  }
+
+  .stepperWrapper {
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  header {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin: 0;
+      color: $primary;
+      @include flexCenter;
+      gap: 8px;
+
+      img {
+        width: 40px;
+      }
+    }
+
+    span {
+      color: gray;
+      margin-top: 6px;
+    }
+  }
+
+  .stepForm {
+    border-radius: 0.8rem;
+    margin: auto;
+    margin-top: 1.6rem;
+    max-width: 980px;
+    box-shadow: 0 0.4rem 0.4rem rgba(0, 0, 0, 0.15);
+  }
+
+  .errorMsg{
+    color: #e8521e;
+    font-size: .8em !important;
+    font-weight: 500 !important;
+    margin-top: 5px;
+    margin-left: 11px;
+  }
+
+  form {
+    width: 94%;
+    z-index: 2;
+    margin: auto;
+    margin-top: 1rem;
+
+    .formGroup {
+      @include flexCenter;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      width: 100%;
+
+      .inputError {
+        color: #e8521e !important;
+        font-size: 0.9rem !important;
+        margin-top: 5px !important;
+      }
+
+      label {
+        font-size: 0.93rem;
+        letter-spacing: 0.4px;
+        color: #555;
+        font-weight: 600;
+        margin-left: 0.8rem;
+        margin-bottom: 6px;
+      }
+
+      select {
+        width: 98%;
+        border: none;
+        border: 0.6px solid lightgray;
+        height: 3rem;
+        padding-left: 5px;
+        border-radius: 10px;
+        outline: none;
+        background-color: transparent;
+        z-index: 2;
+        color: $text-primary;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      input[type="radio"] {
+        width: 1.26rem;
+        height: 1.26rem;
+      }
+
+      select{
+        width: 96%;
+        border: none;
+        border: 0.6px solid lightgray;
+        height: 2.95rem;
+        padding-left: 11px;
+        padding-top: 0;
+        border-radius: 2rem;
+        outline: none;
+        background-color: transparent;
+        z-index: 2;
+        color: $text-primary;
+        font-weight: 600;
+      }
+
+      input {
+        width: 96%;
+        border: none;
+        border: 0.6px solid lightgray;
+        height: 2.95rem;
+        padding-left: 15px;
+        padding-top: 0;
+        border-radius: 2rem;
+        outline: none;
+        background-color: transparent;
+        z-index: 2;
+        color: $text-primary;
+        font-weight: 600;
+
+        &:focus {
+          border: 1px solid $primary;
+        }
+
+        &::placeholder {
+          font-size: 0.88rem;
+          color: gray;
+        }
+      }
+    }
+  }
+
+  .buttonWrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    button:nth-child(1) {
+      background: transparent;
+      box-shadow: none !important;
+      cursor: pointer;
+      color: $text-primary;
+      width: 11rem;
+      border-radius: 7px;
+      margin-right: 10px;
+
+      &:hover{
+        background: #eee;
+      }
+    }
+  }
+
+  button {
+    @include button($width: 96%);
+    margin: 1.5rem 0;
+    max-width: 15rem;
+    border-radius: 0.7rem;
+
+    &:hover {
+      background-color: $primary2;
+      transition: all 0.3s;
+    }
+  }
+
+  h4 {
+    font-weight: 700;
+    font-size: 1.02rem;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .cnicRow {
+    width: 99%;
+    @include flexCenter;
+    gap: 1.5rem;
+    margin: auto;
+
+    .cnicImg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      padding: 1.2rem 0;
+      border-radius: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        box-shadow: 0 0.4rem 0.4rem rgba(0, 0, 0, 0.15) !important;
+        transition: all 0.3s;
+      }
+
+      svg {
+        font-size: 2.5rem;
+        color: $primary;
+      }
+
+      span {
+        font-size: 1.05rem;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.topHeader{
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    background-color: #eee;
+    padding: 2.5rem 0;
+    padding-top: 1.4rem;
+  }
+  
+.sec_text{
+  display: none;
+}
+
+  .topHeader{
+    width: 100%;
+    padding: 0 1.4rem;
+    @include flexCenter;
+    justify-content: flex-start;
+    gap: 1px;
+
+    svg{
+      color: $primary;
+      font-size: 1.1rem;
+    }
+
+    span{
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: $primary;
+    }
+  }
+
+  .cnicRow {
+    width: 95% !important;
+
+    .cnicImg{
+      box-shadow: 0 0.46rem 0.46rem rgba(0, 0, 0, 0.15) !important;
+    }
+  }
+
+  .stepperWrapper {
+    width: 95% !important;
+    margin: 1rem auto;
+  }
+
+  header {
+    span {
+      margin-top: 6px;
+      text-align: center;
+      font-size: 0.9rem;
+      max-width: 95% !important;
+    }
+    h3 {
+      font-size: 1.6rem !important;
+      gap: 8px;
+      color: $text-primary !important;
+
+      img {
+        width: 37px !important;
+      }
+    }
+  }
+
+  input {
+    // background-color: #E5F7F0 !important;
+    &::placeholder {
+      font-size: 0.75rem !important;
+      letter-spacing: 0.5px !important;
+      color: $text-primary !important;
+    }
+  }
+
+  label {
+    font-size: 0.76rem !important;
+    color: gray !important;
+  }
+
+  .formGroup {
+    margin-bottom: 1.4rem !important;
+  }
+
+  .stepForm {
+    width: 100%;
+    background-color: #fff;
+    border-top-left-radius: 1.85rem !important;
+    border-top-right-radius: 1.85rem !important;
+    box-shadow: 3rem 0rem 2rem rgba(0, 0, 0, 0.15) !important;
+    min-height: 70vh;
+    padding-bottom: 1.3rem;
+  }
+
+  .buttonWrap {
+    justify-content: center !important;
+    align-items: center !important;
+
+    button {
+      margin-top: 2rem;
+      max-width: 100% !important;
+    }
+
+    button:nth-child(1) {
+      display: none !important;
+    }
+  }
+}

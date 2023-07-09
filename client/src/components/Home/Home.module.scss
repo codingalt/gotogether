@@ -1,0 +1,154 @@
+@import '../../styles/constants';
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #E4E9FE;
+    @include flexCenter;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+
+    .top{
+        width: 100%;
+        @include flexBetween;
+        padding: 1rem 1.5rem;
+        position: absolute;
+        top: 0.6%;
+        left: 0;
+
+        .left{
+            width: 2.6rem;
+            height: 2.6rem;
+            background: $text-primary;
+            border-radius: .76rem;
+            @include flexCenter;
+
+            svg{
+                font-size: 1.75rem;
+                color: $secondary-white;
+            }
+        }
+
+        .right{
+            font-size: 1rem;
+            font-weight: 700;
+            color: $text-primary;
+        }
+    }
+
+    .header{
+        width: 100%;
+        position: relative;
+        @include flexCenter;
+        flex-direction: column;
+        
+        img{
+            width: 100%;
+            transform: scale(1.25);
+        }
+
+        svg{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            top: 100%;
+        }
+    }
+
+    .line{
+        height: 4.4px;
+        width: 24px;
+        background-color: $secondary;
+        border-radius: 2rem;
+        margin-top: 1.3rem;
+    }
+
+    .content{
+        padding: 2rem 1.7rem;
+        padding-top: 0rem;
+        padding-bottom: .1rem;
+        margin-top: 2rem;
+
+        h3{
+            font-size: 2.9rem;
+            @include lato;
+            color: $text-primary;
+            font-weight: 900;
+        }
+        h3:nth-child(2){
+            margin-left: 4px;
+        }
+        span{
+            font-size: 1.08rem;
+            max-width: 95%;
+            margin-top: 10px;
+            font-weight: 500;
+            display: inline-block;
+            text-align: start;
+        }
+        @media (max-width:768px) {
+            &{
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    .buttonWrap{
+        padding: 1rem;
+        gap: 1rem;
+        margin-top: 1.3rem;
+
+        .signup{
+            @include button($background: $primary,$width: 24rem,$height: 3.2rem);
+            text-transform: uppercase;
+            color: #fff;
+            margin: auto;
+            @include lato;
+        }
+        @media (max-width:768px) {
+            &{
+                position: absolute;
+                width: 100% !important;
+                right: 0%;
+                left: 0%;
+                top: 89%;
+                bottom: 13%;
+                margin-top: 0;
+
+                a{
+                    width: 100%;
+                    text-transform: uppercase;
+                }
+        
+           .signup{
+            @include button($background: $primary,$width: 99%,$height: 3.4rem);
+            border-radius: 8px !important;
+            text-transform: uppercase;
+        }
+
+            }
+        }
+    }
+
+    .contentwrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+@media (min-width: 768px){
+    .container{
+        flex-direction: row;
+    }
+
+    .header{
+        width: 50% !important;
+        img{
+            width: 100%;
+            transform: scale(1);
+        }
+    }
+}

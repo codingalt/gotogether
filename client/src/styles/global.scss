@@ -1,0 +1,132 @@
+@import 'constants';
+@import "~bootstrap/scss/bootstrap";
+
+ol,ul{
+    padding: 0;
+    padding-left: 0;
+}
+
+.innerWidth {
+    @media (min-width: $xxl) {
+        max-width: 1280px;
+        margin: auto;
+    }
+
+    width: 100%;
+}
+
+.pac-container{
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    // top: 195px !important;
+}
+
+// .pac-icon{
+//     display: none;
+// }
+
+// .pac-icon {
+//     background-image: url('../images/up-left-arrow.png') !important;
+//     background-repeat: no-repeat;
+//     background-position: 0 0;
+//     background-size: 15px 17px;
+//     // background-color: #eee;
+//     // border-radius: 50%;
+//     // width: 1.8rem;
+//     // height: 1.8rem;
+//     // display: none;
+// }  
+
+.pac-item{
+    padding: 7px 12px;
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+}
+
+.pac-logo:after {
+    display: none;
+}
+
+// .pac-matched{
+//     font-family: 'Lato', sans-serif;
+//     font-weight: 700;
+//     font-size: .9rem;
+// }
+
+.css-10e3ze8-MuiStack-root{
+    padding-top: 0 !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    height: 1.4rem !important;
+}
+
+.mobileInput {
+    height: 3.3rem !important;
+}
+
+.inputContainer{
+    height: 3.3rem !important;
+    margin: 4rem auto;
+    margin-bottom: 1rem;
+    border-radius: 13px !important;
+}
+
+.react-tel-input .form-control{
+    border: 1px solid #eee !important;
+    border-radius: 13px !important;
+    width: 88% !important;
+    font-size: 1.19rem !important;
+    font-weight: 500 !important;
+    padding-left: 51px !important;
+    color: $text-primary;
+    margin-left: auto !important;
+    box-shadow: none !important;
+}
+
+.react-tel-input .flag-dropdown{
+    background-color: #fff !important;
+    border-radius: 13px 0 0 13px !important;
+    border: 1px solid #eee !important;
+    border-right: none !important;
+    padding-left: 10px !important;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+.bg-primary{
+    background: #E4E9FE;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.flexCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexStart{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.flexEnd{
+    display: flex;
+    justify-items: end;
+}
+
+.flexBetween{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

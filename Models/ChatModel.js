@@ -7,24 +7,29 @@ const chatSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    users: [{
+    campaignId: {
+      type: String,
+      required: true,
+    },
+    users: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Auth"
-    }],
+        ref: "Auth",
+      },
+    ],
     latestMessage: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message"
+      type: String,
+      required: true
     },
     name: {
       type: String,
       required: true,
-      trime: true
+      trime: true,
     },
     profileImg: {
       type: String,
-      required: true
-    }
-    
+      required: true,
+    },
   },
   { timestamps: true }
 );

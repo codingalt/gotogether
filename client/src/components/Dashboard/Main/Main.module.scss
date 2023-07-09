@@ -1,0 +1,258 @@
+@import "../../../styles/constants.scss";
+
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    // z-index: 10;
+
+    .container{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .inputBox{
+        width: 95%;
+        background: #eee;
+        border-radius: 100px;
+        height: 3rem;
+        margin: 2.1rem auto;
+        margin-top: .2rem;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        font-weight: 500;
+        letter-spacing: .3px;
+        color: #212121;
+    }
+
+    .userLocation{
+        width: 24rem;
+        min-height: 3.6rem;
+        border-radius: 100px;
+        background-color: #fff;
+        @include flexCenter;
+        position: absolute;
+        top: 6%;
+        left: 10%;
+        // left: 18.8%;
+        gap: 10px;
+        justify-content: flex-start;
+
+        .icon{
+            width: 2.8rem;
+            height: 2.8rem;
+            @include flexCenter;
+            border-radius: 50%;
+            background: #eee;
+            margin-left: 13px;
+            cursor: pointer;
+
+            svg{
+                font-size: 1.5rem;
+            }
+        }
+
+        .location{
+            font-size: 1rem;
+            font-weight: 600;
+            color: #212121;
+            text-transform: capitalize;
+        }
+
+        @media screen and (max-width:768px) {
+            &{
+                width: 79%;
+                min-height: 3.6rem;
+                top: 1.5%;
+                right: 0%;
+                left: 20%;
+            }
+        }
+    }
+
+    .confirmLocation{
+        position: absolute;
+        bottom: 6%;
+        left: 30%;
+
+        button{
+            @include button($width: 20rem, $height: 3.2rem);
+            border-radius: 10px;
+
+            &:hover{
+                background-color: $primary2;
+
+            }
+        }
+        @media (max-width:768px) {
+            &{
+                bottom: 3%;
+                left: 50%;
+                transform: translate(-50%,0%);
+                width: 93%;
+                button{
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .drawer{
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        @include flexCenter;
+        background-color: #fff;
+        position: absolute;
+        top: 6%;
+        left: 4%;
+        cursor: pointer;
+        transition: all .3s;
+
+        &:hover{
+            transform: scale(1.05);
+            transition: transform .3s;
+        }
+
+        svg{
+            font-size: 1.6rem;
+            color: #000;
+        }
+        @media screen and (max-width:768px) {
+            &{
+                top: 2%;
+                left: 3%;
+                left: 4%;
+                top: 2.5%;
+                width: 3.4rem;
+                height: 3.4rem;
+                width: 3.2rem;
+                height: 3.2rem;
+
+                svg{
+                    font-size: 1.6rem;
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+
+    .infoContainer{
+        position: absolute;
+        bottom: 0%;
+        right: 2%;
+        width: 30rem;
+        height: 16.5rem;
+        background-color: #F8F8FA;
+        overflow: hidden;
+        border-radius: 30px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        .maximizeLine{
+            width: 6rem;
+            height: 4.3px;
+            border-radius: 45px;
+            cursor: pointer;
+            background-color: #CECECE;
+            margin: 5px auto;
+            margin-top: 11px;
+        }
+
+        .header{
+            width: 100%;
+            padding: 10px 20px;
+            color: #000;
+
+            span{
+                font-size: 1.1rem;
+                font-weight: 700;
+                letter-spacing: .4px;
+
+                span{
+                    color: $primary2;
+                }
+            }
+        }
+
+        .recentLocations{
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            margin-left: 14px;
+            flex-wrap: nowrap;
+            gap: 10px;
+            padding-bottom: 30px;
+            padding-bottom: 23px;
+
+            .card{
+                flex: 1;
+                width: 12rem;
+                height: 10rem;
+                background-color: #fff;
+                border-radius: 1.3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem 0;
+                gap: 18px;
+                cursor: pointer;
+
+                .icon{
+                    width: 3.9rem;
+                    height: 3.9rem;
+                    border-radius: 50%;
+                    @include flexCenter;
+
+                    svg{
+                        color: #fff;
+                        font-size: 1.5rem;
+                    }
+                }
+
+                .title{
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 3px;
+
+                    span:nth-child(1){
+                        font-size: 1rem;
+                        color: #000;
+                        font-weight: 600;
+                    }
+                    span:nth-child(2){
+                        font-size: .77rem;
+                        color: #555;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+
+    }
+
+    @media screen and (max-width: 768px) {
+        .infoContainer{
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border-radius: 31px;
+            height: 17rem;
+            height: auto;
+            width: 100%;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+    
+
+}

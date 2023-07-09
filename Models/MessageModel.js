@@ -7,7 +7,7 @@ const messageSchema = mongoose.Schema(
       ref: "Auth",
       required: true,
     },
-    chat: {
+    chatId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chat",
       required: true,

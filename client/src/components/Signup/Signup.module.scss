@@ -1,0 +1,63 @@
+@import '../../styles/constants.scss';
+
+.wrapper{
+    width: 100%;
+    min-height: 100vh;
+    @include flexCenter;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    header{
+        margin: 2rem 1rem;
+        margin-bottom: 1.4rem;
+
+        .circle{
+            width: 11.3rem;
+            height: 11.3rem;
+            width: 16rem;
+            @include flexCenter;
+            margin: auto;
+            margin-top: 1rem;
+            // background-color: #E9E9F9;
+            // background-color: #E2F9FF;
+            // border-radius: 50%;
+
+            img{
+                width: 100%;
+                transform: scale(1.04);
+            }
+        }
+
+        h3{
+            font-size: 1.7rem;
+            margin-top: 3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        p{
+            font-size: .95rem;
+            color: $text-primary2;
+            max-width: 80%;
+            text-align: center;
+            margin-top: .7rem !important;
+            margin: auto;
+
+            a{
+                color: $primary !important;
+                font-weight: 500;
+            }
+        }
+    }
+
+    button{
+        @include button($width: 80%,$height: 2.8rem);
+        margin: 0rem auto;
+        max-width: 22rem;
+
+        &:hover{
+            background: $primary2;
+            transition: all .3s;
+        }
+    }
+}
+

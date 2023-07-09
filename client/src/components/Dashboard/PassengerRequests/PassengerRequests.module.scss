@@ -1,0 +1,217 @@
+@import '../../../styles/constants.scss';
+
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: #eee;
+
+    .top{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 17px auto;
+        max-width: 900px;
+
+        svg{
+            font-size: 1.4rem;
+            color: $primary;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        h1{
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            color: $primary;
+            font-weight: 600;
+        }
+
+        img{
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+    }
+
+    .cards{
+        max-width: 850px;
+        @include flexCenter;
+        justify-content: flex-start;
+        gap: 1.3rem;
+        flex-wrap: wrap;
+        margin: 3rem auto;
+
+
+        .card{
+            width: 380px;
+            max-width: 390px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+
+            .top{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 7px;
+
+                .left{
+                    display: flex;
+                    gap: 2px;
+
+                    img{
+                        width: 3rem;
+                        height: 3rem;
+                        border-radius: 50%;
+                    }
+
+                    .data{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0px;
+
+                        span:nth-child(1){
+                            font-weight: 800;
+                            font-size: 1.06rem;
+                            letter-spacing: .3px;
+                        }
+                        span:nth-child(2){
+                            font-weight: 500;
+                            font-size: .95rem;
+                            color: #555;
+                            letter-spacing: .3px;
+                        }
+                    }
+                }
+
+                .right{
+                    font-size: 1.04rem;
+                    margin-right: 3px;
+                    font-weight: 700;
+                    text-transform: capitalize;
+                    margin-top: -24px;
+                    letter-spacing: .3px;
+                }
+            }
+
+            .seatInfo{
+            width: 85%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1rem auto;
+            margin-bottom: 0px;
+
+            .left{
+                display: flex;
+                align-items: center;
+                gap: .45rem;
+
+                svg{
+                    color: $primary;
+                    font-size: 1.19rem;
+                }
+
+                span{
+                    font-size: 1.02rem;
+                    font-weight: 700;
+                    color: #212121;
+                }
+            }
+
+            .right{
+                span{
+                    font-size: 1.08rem;
+                    font-weight: 700;
+                    color: $primary;
+                }
+            }
+        }
+
+        .total{
+            width: 98%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 20px 0;
+
+            span{
+                font-size: 1.07rem;
+                color: #212121;
+                font-weight: 700;
+                letter-spacing: .4px;
+            }
+
+            span:nth-child(2){
+                color: $primary;
+            }
+        }
+
+        .buttons{
+            width: 100%;
+            @include flexCenter;
+            gap: 17px;
+
+            button{
+                @include button($width: 90%,$height: 2.85rem);
+                border-radius: 8px;
+                flex: 1;
+                box-shadow: none !important;
+                background-color: #66D379;
+                color: #fff;
+
+                &:hover{
+                    background-color: #5cb85c;
+                }
+                
+            }
+
+            button:nth-child(1){
+                border: 1px solid #d9534f;
+                color: #d9534f;
+                // color: #df4759;
+                background-color: transparent;
+                opacity: .87;
+            }
+
+            .acceptedBtn{
+                cursor:default;
+                color: #fff !important;
+                background-color: #5cb85c !important;
+                border: none !important;
+            }
+
+            .declinedBtn{
+                cursor:default;
+                color: #721c24 !important;
+                background-color: #f8d7da !important;
+                border-color: #f5c6cb;
+                border: 1px solid #f5c6cb !important;
+            }
+        }
+
+        }
+
+        @media (max-width:768px) {
+            &{
+                margin: 2.1rem auto;
+                justify-content: center;
+                flex-direction: column;
+                gap: .9rem;
+                .card{
+                    width: 93%;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    .seatInfo{
+                    width: 96%;
+                }
+                }
+            }
+        }
+    }
+
+}

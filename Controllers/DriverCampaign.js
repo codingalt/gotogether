@@ -1,6 +1,7 @@
 const express = require('express');
 const DriverCampaignModel = require('../Models/DriverCampaign');
 const SearchCampaigns = require("../utils/search");
+var ObjectId = require("mongodb").ObjectId;
 
 const postCampaign = async (req,res) => {
     try {
@@ -37,9 +38,58 @@ const getCampaignsByDriverId = async (req,res) =>{
 const getCampaignsById = async (req,res) =>{
     try {
         const campaignId = req.params.id;
-        const campaign = await DriverCampaignModel.findById(campaignId);
-        // const campaign = await DriverCampaignModel.aggregate([])
-        res.status(200).json({campaign: campaign,success: true})
+        // const campaign = await DriverCampaignModel.findById(campaignId);
+        const campaign = await DriverCampaignModel.aggregate([
+          {
+            $match: {
+              _id: ObjectId(campaignId),
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "driverId",
+              foreignField: "userId",
+              as: "UserData",
+            },
+          },
+          {
+            $unwind: "$UserData",
+          },
+          {
+            $lookup: {
+              from: "drivers",
+              localField: "driverId",
+              foreignField: "userId",
+              as: "Driver",
+            },
+          },
+          {
+            $unwind: "$Driver",
+          },
+          {
+            $addFields: {
+              name: "$UserData.name",
+              profileImg: "$UserData.profileImg",
+              city: "$UserData.city",
+              gender: "$UserData.gender",
+              totalRating: "$Driver.totalRating",
+              totalReviewsGiven: "$Driver.totalReviewsGiven",
+              vehicleType: "$Driver.vehicleType",
+              vehicleBrand: "$Driver.vehicleBrand",
+              vehicleNumber: "$Driver.vehicleNumber",
+              vehicleImage: "$Driver.vehicleImage",
+            },
+          },
+
+          {
+            $project: {
+              UserData: 0,
+              Driver: 0,
+            },
+          },
+        ]);
+        res.status(200).json({campaign: campaign[0],success: true})
         
     } catch (err) {
     res.status(500).json({ message: err.message, success: false });

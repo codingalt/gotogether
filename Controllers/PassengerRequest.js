@@ -195,9 +195,62 @@ const getPassengerRequests = async (req,res) =>{
     }
 }
 
+// Get Passenger Requests By his/her Id
+
+const getRequestsByPassengerId = async(req,res)=>{
+    try {
+
+       const requests = await PassengerRequestModel.aggregate([
+         {
+           $match: {
+             passengerId: req.userId.toString(),
+           },
+         },
+         {
+           $addFields: {
+             convertedId: { $toObjectId: "$campaignId" },
+           },
+         },
+         {
+           $lookup: {
+             from: "drivercampaigns",
+             localField: "convertedId",
+             foreignField: "_id",
+             as: "Campaign",
+           },
+         },
+         {
+           $unwind: "$Campaign",
+         },
+         {
+           $addFields: {
+             startLocation: "$Campaign.startLocation",
+             endingLocation: "$Campaign.endingLocation",
+             expectedRideDistance: "$Campaign.expectedRideDistance",
+             expectedRideTime: "$Campaign.expectedRideTime",
+             availableSeats: "$Campaign.availableSeats",
+             bookedSeats: "$Campaign.bookedSeats",
+           },
+         },
+         {
+           $project: {
+             Campaign: 0,
+             convertedId: 0,
+             __v: 0
+           },
+         },
+       ]);
+      res.status(200).json({requests, success: true});
+      
+    } catch (err) {
+      res.status(500).json({ message: err.message, success: false });
+    }
+}
+
 module.exports = {
   postRequest,
   approvePassengerRequest,
   getPassengerRequests,
   declineRequest,
+  getRequestsByPassengerId,
 };

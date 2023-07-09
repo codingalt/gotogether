@@ -1,0 +1,126 @@
+@import '../../../styles/constants.scss';
+
+.activeCard{
+    top: 0 !important;
+    transition: all .3s !important;
+}
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    overflow: hidden;
+    position: fixed;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+    transition: all .32s;
+
+    .card{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,0%);
+        width: 28rem;
+        min-height: 8rem;
+        background-color: #fff;
+        border-top-left-radius: 35px;
+        border-top-right-radius: 35px;
+        padding: 21px 20px;
+        padding-bottom: 15px;
+
+        .line{
+            width: 2.8rem;
+            height: 3px;
+            border-radius: 60px;
+            background-color: rgb(142, 139, 139);
+            margin: 12px auto;
+            margin-top: -5.5px;
+        }
+
+        h3{
+            color: $text-primary;
+            font-size: 1.24rem;
+            margin-bottom: 5px;
+            max-width: 90%;
+            margin-left: 8px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .selectSeats{
+            width: 93%;
+            margin: 1.4rem auto;
+            @include flexCenter;
+            background-color: #eee;
+            border-radius: 15px;
+            padding: 10px 7px;
+            margin-top: 1.1rem;
+            justify-content: flex-between;
+
+            .seats{
+                width: 60%;
+                @include flexCenter;
+                font-size: 1.5rem;
+                font-weight: 800;
+            }
+
+            button{
+                @include button($width: 90%,$height: 3.05rem);
+                margin: 0rem auto;
+                max-width: 3.8rem;
+                font-size: 1.2rem;
+                @include flexCenter;
+                border-radius: 13px;
+                width: 20%;
+
+                  &:hover{
+                background: $primary2;
+                transition: all .3s;
+            }
+            }
+        }
+
+        .requestBtn{
+            @include button($width: 90%,$height: 3.1rem);
+            margin: 10px auto;
+            margin-top: 0;
+            border-radius: 11px;
+
+              &:hover{
+                background: $primary2;
+                transition: all .3s;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        &{
+            .card{
+                width: 100%;
+                border-top-left-radius: 31px;
+                border-top-right-radius: 31px;
+
+                h3{
+                    margin-top: 7px;
+                }
+
+                .requestBtn{
+                    @include button($width: 98%,$height: 3.1rem);
+                    border-radius: 11px;
+                }
+
+                  .selectSeats{
+                    height: 3.8rem;
+                     width: 98%;
+
+                     button{
+                        @include button($width: 90%,$height: 3.02rem);
+                        margin: 0rem auto;
+                        max-width: 3.6rem;
+                        border-radius: 14px;
+                     }
+                  }
+            }
+        }
+    }
+}

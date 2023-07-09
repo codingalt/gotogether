@@ -1,0 +1,378 @@
+@import "../../../styles/constants.scss";
+
+.white-button-chat {
+  width: 77%;
+  margin: auto;
+  margin-top: 8px;
+}
+
+.white-button-chat button{
+    @include button($width: 98%,$height: 2.8rem);
+    background-color: #fff;
+    color: $primary2;
+    font-weight: 800;
+}
+
+.chat_wrapper{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.55);
+    overflow: hidden;
+    position: fixed;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+    transition: all .32s;
+}
+
+.chat_wrapper_active{
+    top: 0 !important;
+    transition: all .3s !important;
+}
+
+.info-container {
+  z-index: 10;
+  width: 38%;
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(28%, 0%);
+  height: auto;
+  min-height: 130px;
+  padding: 1.5rem;
+  border-radius: 3rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #fff;
+  background: $primary;
+  background: linear-gradient(108.21deg, #2272FF 0%, #0D03C3 97.89%);
+  transition: ease-in-out 0.3s;
+  visibility: visible;
+  opacity: 1;
+}
+
+.close-info {
+  display: flex;
+  justify-content: flex-end;
+  width: 94%;
+  height: .2rem;
+  align-items: center;
+}
+
+.close-info svg {
+  font-size: 1.12rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.wb-chat-inner {
+  width: 96%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  justify-content: center;
+}
+
+.white-button-chat .line {
+   width: 9.5rem;
+  background-color: #eee;
+  height: 4px;
+  border-radius: 80px;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.info-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-container-toggle {
+  visibility: hidden;
+  opacity: 0;
+  transition: ease-in-out 0.3s;
+}
+
+.info-inner .profile {
+  position: absolute;
+  transform: translate(-50%, -84%);
+  top: 0;
+  left: 50%;
+  border: 4px solid #fff;
+  width: 6.2rem;
+  height: 6.2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info-inner .profile img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.driver-info {
+  width: 100%;
+  margin: 1.5rem auto;
+  margin-top: 1.4rem;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.driver-info .name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.driver-info .rating {
+  color: #fff;
+}
+
+.driver-info .rating svg {
+  color: #ffdf00;
+  margin-left: 5px;
+  font-size: 0.9rem;
+}
+
+.driver-info .car-info {
+  display: flex;
+  width: 15rem;
+  background-color: #fff;
+  min-height: 2rem;
+  padding: 8px;
+  border-radius: 2rem;
+  color: #555;
+  margin-top: 6px;
+}
+
+.car-info .left {
+  border-right: 1px solid #555;
+  text-align: center;
+  width: 50%;
+  font-size: 0.93rem;
+  font-weight: 500;
+}
+
+.car-info .right {
+  text-align: center;
+  width: 50%;
+  font-size: 0.93rem;
+  font-weight: 500;
+}
+
+.driver-info .descript {
+  max-width: 50%;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.chat-container {
+  width: 80%;
+  background-color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 1.5rem;
+  margin: 1rem auto;
+  margin-bottom: 0rem;
+  margin-top: 1rem;
+  max-height: 370px;
+  min-height: 370px;
+  overflow: hidden;
+  position: relative;
+}
+.chat-container ul {
+  width: 100%;
+  max-height: 340px;
+  height: 100%;
+  // overflow-y: auto;
+  margin-bottom: 15px;
+  padding-bottom: 4.2rem;
+  padding-left: 2px;
+}
+
+.chat-container .chat-body{
+  width: 100%;
+  max-height: 340px;
+  height: 100%;
+  margin-bottom: 15px;
+  padding-bottom: 4.2rem;
+  padding-left: 2px;
+}
+.chat-container .my-msg {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.chat-container .driver-msg {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 13px;
+}
+
+.styles_scrollable-div__prSCv{
+  max-height: 302px !important;
+  padding-bottom: .1rem;
+  height: 100% !important;
+}
+
+.driver-msg .img {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.driver-msg .img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.driver-msg .message {
+  max-width: 75%;
+  color: rgba(0, 0, 0, 0.86);
+  font-size: 0.94rem;
+  background-color: #2272FF;
+  font-weight: 500;
+  word-break: break-all;
+  border-radius: 1.1rem;
+  padding: 6px 17px;
+  color: #fff;
+
+}
+
+.my-msg {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+}
+
+.my-msg .my-message {
+  background: #eee;
+  border-radius: 1.1rem;
+  border-top-right-radius: 0;
+  padding: 8px 17px;
+  max-width: 64%;
+  color: #555;
+  font-size: 0.94rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.chat-container .line {
+  width: 6rem;
+  background-color: #eee;
+  height: 2px;
+  border-radius: 28px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 6px;
+}
+
+.send-msg {
+  position: absolute;
+  width: 100%;
+  height: 3.4rem;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  bottom: 0;
+  left: 0;
+  border-top: 1.5px solid #eee;
+  background-color: #fff;
+    word-wrap: break-word;
+  word-break: break-all;
+}
+
+.send-msg input {
+  height: 100%;
+  width: 89%;
+  outline: none;
+  border: none;
+  padding-left: 18px;
+  padding-right: 14px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.send-msg input::placeholder {
+  font-size: 0.92rem;
+}
+
+.send-btn {
+  cursor: pointer;
+  background-color: $primary;
+  width: 2.4rem;
+  height: 2.4rem;
+  @include flexCenter;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.send-btn svg {
+  color: #1dbf73;
+  color: #fff;
+  font-size: 1.31rem;
+}
+
+.my-msg audio,
+.driver-msg audio {
+  max-width: 11.5rem;
+  height: 2.8rem;
+}
+
+@media screen and (max-width: 768px) {
+  .driver-info .descript {
+    max-width: 80%;
+    font-size: 1rem;
+  }
+  .white-button-chat {
+    width: 100%;
+  }
+  .chat-container {
+    width: 100%;
+    max-height: 210px;
+    margin-bottom: 7px;
+  }
+  .my-msg .my-message {
+    max-width: 75%;
+  }
+
+  .info-container {
+    padding: 1rem;
+    border-radius: 1.6rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    min-height: 420px;
+    width: 100%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 30;
+  }
+  .chat-container ul {
+    width: 100%;
+    max-height: 480px;
+    height: 100%;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-bottom: 8.35rem;
+  }
+}

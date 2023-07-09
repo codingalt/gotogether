@@ -1,0 +1,436 @@
+@import '../../../styles/constants.scss';
+
+.wrapper{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #eee;
+    overflow-x: hidden;
+
+    .top{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 17px auto;
+        max-width: 900px;
+
+        svg{
+            font-size: 1.4rem;
+            color: $primary;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        h1{
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            color: $primary;
+            font-weight: 600;
+        }
+
+        img{
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+    }
+
+    .shedules{
+        max-width: 1000px;
+        @include flexCenter;
+        justify-content: flex-start;
+        gap: 1.3rem;
+        flex-wrap: wrap;
+        margin: 3rem auto;
+
+        .noData{
+            width: 89%;
+            margin: 2rem auto;
+            height: 11rem;
+            margin-top: 2.4rem;
+
+            h1{
+                margin-top: 25px;
+                margin-bottom: 3px;
+                font-size: 1.53rem;
+                margin-left: 13px;
+                margin-right: auto;
+                font-weight: 600;
+                max-width: 90%;
+                color: $text-primary;
+            }
+
+            p{
+                margin-top: 14px;
+                color: gray;
+                max-width: 85%;
+                margin-left: 13px;
+            }
+
+            img{
+                width: 96%;
+                margin-top: 25px;
+            }
+        }
+
+        .card{
+            flex: 1;
+            background: #FFFFFF;
+            // border: 1px solid #EEEEEE;
+            // box-shadow: 3px 4px 4px 4px rgba(0, 0, 0, 0.05);
+            // border-radius: 10px;
+            padding: 14px 12px;
+            min-height: 308px;
+            min-height: 230px;
+            padding-top: 0;
+            width: 338px;
+            max-width: 400px;
+            border: 2px solid #eee;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+            border-radius: 10px;
+
+            .head{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 8px;
+                padding-left: 13px;
+                padding-right: 13px;
+                // background-color: $primary;
+                border-radius: 10px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+
+                span:nth-child(1){
+                    font-weight: 600;
+                    color: $text-primary;
+                    // color: #fff;
+                    font-size: 1.01rem;
+                    letter-spacing: .5px;
+                    text-transform: uppercase;
+                }
+                span:nth-child(2){
+                    font-weight: 600;
+                    color: $primary;
+                    // color: #fff;
+                    font-size: .83rem;
+                    letter-spacing: .5px;
+                    text-transform: uppercase;
+                }
+            }
+
+            .location{
+                width: 100%;
+                display: flex;
+                margin-top: 6px;
+                gap: 7px;
+                position: relative;
+                margin-bottom: 13px;
+                padding-left: 13px;
+                padding-right: 12px;
+
+                .line{
+                    position: absolute;
+                    left: 2.4%;
+                    top: 45%;
+                    top: 20%;
+                    width: 2px;
+                    height: 100%;
+                    z-index: 0;
+                    background-color: $primary;
+                    border-radius: 10px;
+                }
+
+                .icon{
+                    width: 1.3rem;
+                    z-index: 1;
+
+                    svg{
+                        font-size: 1.12rem;
+                        color: $primary;
+                        z-index: 1;
+                    }
+                }
+                .text{
+                    font-size: .95rem;
+                    margin-top: 2px;
+                    font-weight: 700;
+                    // color: gray;
+                }
+            }
+
+            .time{
+                width: 97%;
+                @include flexCenter;
+                gap: 10px;
+                margin-top: 13px;
+                justify-content: space-between;
+                align-items: center;
+                margin-left: 4px;
+                padding-bottom: 8px;
+                padding-left: 13px;
+                padding-right: 12px;
+
+                div{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                svg{
+                    color: $primary;
+                }
+
+                span{
+                    font-size: .945rem;
+                    font-weight: 500;
+                    color: $text-primary2;
+                    color: $primary;
+                }
+            }
+
+            .details{
+                width: 98%;
+                @include flexCenter;
+                gap: 16px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 19px;
+
+                .item{
+                    // flex: 1;
+                    background: #eee;
+                    border-radius: 7px;
+                    width: 86px;
+                    width: 95px;
+                    height: 65px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1px;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 7px;
+                    padding-bottom: 7px;
+
+                    span:nth-child(1){
+                        font-weight: 800;
+                        font-size: .98rem;
+                        color: #000;
+                    }
+                    span:nth-child(2){
+                        font-weight: 600;
+                        font-size: .82rem;
+                        color: #555;
+                    }
+                }
+            }
+
+            .seats{
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                justify-content: flex-end;
+                margin-top: 15px;
+                margin-right: 25px;
+
+                svg{
+                    color: $primary;
+                }
+
+                .left{
+                    display: flex;
+                    align-items: center;
+                    gap: 2px;
+
+                    svg{
+                        font-size: 1.2rem;
+                    }
+                }
+
+                span:nth-child(2){
+                    color: $primary;
+                }
+
+                span{
+                    color: #212121;
+                    color: $primary;
+                    font-weight: 800;
+                    font-size: 1.05rem;
+                }
+            }
+
+            ul{
+                width: 98%;
+                width: 100%;
+                margin-left: 0 !important;
+                // margin-top: 1rem;
+                margin-top: 4px;
+                padding-left: 6px;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 0px;
+                border-bottom-left-radius: 9px;
+                border-bottom-right-radius: 9px;
+                padding-bottom: 8px;
+                // background-color: $primary;
+                // color: #fff;
+                margin-bottom: 0;
+
+                li{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 12px;
+
+                    .right{
+                         span{
+                        font-weight: 700;
+                        font-size: 1.01rem;
+                        color: #212121;
+                    }
+                    }
+
+
+                    .left{
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+
+                        svg{
+                            color: $primary;
+                            font-size: 1.2rem;
+                        }
+
+                        span{
+                            font-size: 1.01rem;
+                            font-weight: 700;
+                        }
+                    }
+
+                    .startRideBtns{
+                        display: flex;
+                        width: 100%;
+                        align-items: center;
+                        gap: 1rem;
+
+                        button{
+                            flex: 1;
+                            @include button($width: 6rem, $height: 2.94rem);
+                            border-radius: 10px;
+                            background-color: transparent;
+                            box-shadow: none !important;
+                            border: 1px solid $primary;
+                            color: $primary;
+
+                            &:hover{
+                                background-color: $primary2;
+                                transition: all .3s;
+                                color: #fff !important;
+                                a{
+                                    color: #fff;
+                                }
+                            }
+                        }
+                     
+                    }
+
+                    .cancelBtn{
+                        @include button($width: 99%, $height: 3rem);
+                        text-transform: uppercase;
+                        letter-spacing: .4px;
+                            border-radius: 10px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            box-shadow: none !important;
+                            &:hover{
+                                background-color: $primary2;
+                                transition: all .3s;
+                            }
+                    }
+                }
+            }
+
+            .buttons{
+                display: flex;
+                justify-content: flex-end;
+                gap: 15px;
+                align-items: center;
+                margin-bottom: 7px;
+            }
+
+            button{
+                @include button($width: 8.2rem,$height: 2.7rem);
+                border-radius: 5px;
+                max-width: 22rem;
+                margin-top: 1rem;
+                background-color: transparent;
+                border: 1px solid $primary;
+                color: $primary;
+                box-shadow: none !important;
+                font-size: 1rem;
+
+                &:hover{
+                    background: $primary2;
+                    transition: all .3s;
+                }
+            }
+
+            .start{
+                background: $primary;
+                color: #fff;
+            }
+
+        }
+
+        @media (max-width:768px) {
+            &{
+                flex-direction: column;
+
+                .location{
+                    padding-left: 13px;
+                    padding-right: 12px;
+                }
+
+                .time{
+                    padding-left: 13px;
+                    padding-right: 12px;
+                    margin-top: 15px !important;
+                    border-bottom:  none !important;
+                }
+
+                .head{
+                    padding: 13px 12px !important;
+                }
+
+                    .card{
+                        padding-left: 5px;
+                        padding-bottom: 0px;
+                        padding-right: 5px;
+                        width: 93%;
+                        border-radius: 0px;
+                        border-radius: 15px;
+                        // border-bottom-left-radius: 0;
+                        // border-bottom-right-radius: 0;
+                        // border: none;
+                        // border-bottom: 2px solid #eee;
+                        border: 1px solid #eee;
+                        .head {
+                            margin-top: 6px;
+                            span:nth-child(1){
+                                font-size: .93rem;
+                            }
+                        }
+                    }
+                
+
+               
+            }
+        }
+    }
+
+}
