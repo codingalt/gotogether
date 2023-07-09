@@ -53,12 +53,14 @@ const Chat = ({ chatCard, setChatCard, driverData }) => {
     socket.emit("join chat", user.userId);
   }
 
+  console.log('Selected Chat', selectedChat);
+
   const typingHandler = (e) =>{
     setNewMessage(e.target.value);
     if(!socketConnected) return;
     if(!typing){
       setTyping(true);
-      socket.emit('typing', selectedChat._id);
+      socket.emit('typing', selectedChat?._id);
     }
       let lastTypingTime = new Date().getTime();
       var timerLength = 3000;
@@ -66,7 +68,7 @@ const Chat = ({ chatCard, setChatCard, driverData }) => {
         let timeNow = new Date().getTime();
         var timeDiff = timeNow - lastTypingTime;
         if(timeDiff >= timerLength && typing){
-          socket.emit('stop typing', selectedChat._id);
+          socket.emit('stop typing', selectedChat?._id);
           setTyping(false);
         }
       }, timerLength);
@@ -75,9 +77,9 @@ const Chat = ({ chatCard, setChatCard, driverData }) => {
 
   const handleSendMessage = async() => {
     if(newMessage){
-      socket.emit('stop typing', selectedChat._id);
+      socket.emit('stop typing', selectedChat?._id);
       setNewMessage("");
-      const {data} = await sendMessage({chatId: selectedChat._id, content: newMessage})
+      const {data} = await sendMessage({chatId: selectedChat?._id, content: newMessage})
       socket.emit('new message', data?.result)
       setMessages([...messages, data]);
     }
