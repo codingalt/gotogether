@@ -28,7 +28,7 @@ const PassengerRequests = () => {
 
     const requestsRefetch = async(id) =>{
       const { data } = await axios.get(
-        `http://localhost:5000/passenger/request/${id}`,
+        `https://gotogether-283d17c4540b.herokuapp.com/passenger/request/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

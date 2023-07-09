@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const passengerRequestApi = createApi({
   reducerPath: "passengerRequestApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/",
+    baseUrl: "https://gotogether-283d17c4540b.herokuapp.com/",
     prepareHeaders: async (headers, query) => {
       const authToken = localStorage.getItem("jwtoken_auth");
       if (authToken) {

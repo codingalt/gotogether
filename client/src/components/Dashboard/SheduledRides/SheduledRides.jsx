@@ -31,7 +31,7 @@ const SheduledRides = () => {
           <Loader width={10} color="#3784FB" />
         ) : (
           <img
-            src={`http://localhost:5000/Uploads/profile/${profileImg}`}
+            src={`https://gotogether-283d17c4540b.herokuapp.com/Uploads/profile/${profileImg}`}
             alt=""
           />
         )}

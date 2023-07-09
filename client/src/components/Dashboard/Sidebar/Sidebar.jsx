@@ -50,7 +50,11 @@ const Sidebar = () => {
   }, [window.location.pathname]);
   return (
     <>
-      <NotificationModal open={open} handleOpen={handleOpen} handleClose={handleClose} />
+      <NotificationModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      />
       <div className={sidebar ? "sidebar-overlay sidebar-active" : ""}></div>
       <div
         ref={sidebarRef}
@@ -64,7 +68,7 @@ const Sidebar = () => {
           >
             <div className="inner">
               <img
-                src={`http://localhost:5000/Uploads/profile/${profileImg}`}
+                src={`https://gotogether-283d17c4540b.herokuapp.com/Uploads/profile/${profileImg}`}
                 alt=""
               />
               <div className="online-dot"></div>
@@ -129,7 +133,12 @@ const Sidebar = () => {
                 </NavLink>
               )}
             </li>
-            <li onClick={() => {setSidebar(false); handleOpen()}}>
+            <li
+              onClick={() => {
+                setSidebar(false);
+                handleOpen();
+              }}
+            >
               <NavLink
                 to="#"
                 className={pathname.match("/notification") ? "activeli" : ""}
