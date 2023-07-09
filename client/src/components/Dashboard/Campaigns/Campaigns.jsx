@@ -26,6 +26,7 @@ import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -49,6 +50,7 @@ const Campaigns = () => {
   const [campaignId, setCampaignId] = useState(null); 
   const [driverId, setDriverId] = useState(null); 
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false); 
@@ -156,7 +158,7 @@ const Campaigns = () => {
       <div className={css.wrapper}>
         <div className={css.header}>
           <div className={css.left}>
-            <span>Find your</span>
+            <span onClick={()=> navigate('/home')}>Find your</span>
             <span>Destination</span>
           </div>
           <div className={css.right}>
