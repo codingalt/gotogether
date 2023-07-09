@@ -32,7 +32,7 @@ const accessChat = async (req, res) => {
         profileImg: userData.profileImg
       });
       const result = await newChat.save();
-      res.status(200).json({ result, success: true });
+      res.status(200).json({ chat: result, success: true });
     }
 
   } catch (err) {
