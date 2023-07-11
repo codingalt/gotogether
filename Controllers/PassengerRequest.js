@@ -2,15 +2,25 @@ const DriverCampaignModel = require("../Models/DriverCampaign");
 const PassengerRequestModel = require("../Models/PassengerRequest");
 
 const postRequest = async (req, res) => {
+  console.log(req.body);
   try {
-    const { passengerId, campaignId, requireSeats, costPerSeat } = req.body;
-    if (!passengerId || !campaignId || !requireSeats || !costPerSeat) {
-      return res
-        .status(422)
-        .json({
-          message: "Please fill out all the fields properly.",
-          success: false,
-        });
+    const {
+      passengerId,
+      campaignId,
+      requireSeats,
+      costPerSeat,
+      pickupLocation,
+    } = req.body;
+    if (
+      !passengerId ||
+      !campaignId ||
+      !requireSeats ||
+      !costPerSeat
+    ) {
+      return res.status(422).json({
+        message: "Please fill out all the fields properly.",
+        success: false,
+      });
     }
 
     // Check for Seats if available
@@ -39,6 +49,7 @@ const postRequest = async (req, res) => {
       campaignId,
       requireSeats,
       costPerSeat,
+      pickupLocation,
     });
     const postRequest = await newRequest.save();
     res.status(200).json({ postRequest, success: true });

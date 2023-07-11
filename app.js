@@ -52,7 +52,7 @@ const corsOptions = {
   const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-      origin: "https://gotogether-283d17c4540b.herokuapp.com/",
+      origin: "http://localhost:3000",
     },
   });
 

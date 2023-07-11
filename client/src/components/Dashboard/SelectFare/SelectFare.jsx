@@ -52,11 +52,11 @@ const SelectFare = ({
 
   const handleSubmit = async () => {
     const userId = localStorage.getItem("userId");
-    const {data} = await postPassengerRequest({
+    const { data } = await postPassengerRequest({
       passengerId: userId,
       campaignId: campaignId,
       requireSeats: seats,
-      costPerSeat: seatCost,
+      costPerSeat: offerFare,
     });
     const newObj = {
       requestId: data?.postRequest?._id,
@@ -64,7 +64,7 @@ const SelectFare = ({
       campaignId,
       driverId,
       requireSeats: seats,
-      costPerSeat: seatCost,
+      costPerSeat: offerFare,
     };
     socket.emit("send passenger request", newObj);
   };

@@ -14,6 +14,9 @@ const passengerRequestSchema = mongoose.Schema(
         type: Number,
         required: true,
       },
+      pickupLocation: {
+        type: String
+      },
       costPerSeat: {
         type: Number,
         required: true,

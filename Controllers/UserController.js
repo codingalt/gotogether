@@ -91,6 +91,7 @@ const sendOtp2 = async (req, res) => {
 
   // Verify Otp 
   const verifyOtp = async (req,res) =>{
+    console.log(req.body);
     const otpHolder = await OtpModel.find({number: req.body.phone});
     if(otpHolder.length === 0){
       return res.status(400).json({message: 'You have used an Expired OTP!',success: false});

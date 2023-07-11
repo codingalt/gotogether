@@ -20,11 +20,11 @@ const registerDriver = async (req, res) => {
       liscenseExpiryDate,
     } = req.body;
 
-    const cnicImgFront = req.files.cnicfront[0]?.filename;
-    const cnicImgBack = req.files.cnicback[0]?.filename;
-    const liscenseImage = req.files.liscenseimage[0]?.filename;
-    const vehicleImage = req.files.vehicles[0]?.filename;
-    const vehicleRegisterCertificate = req.files.vehicleCertificate[0]?.filename;
+    const cnicImgFront = req.files?.cnicfront[0]?.filename;
+    const cnicImgBack = req.files?.cnicback[0]?.filename;
+    const liscenseImage = req.files?.liscenseimage[0]?.filename;
+    const vehicleImage = req.files?.vehicles[0]?.filename;
+    const vehicleRegisterCertificate = req.files?.vehicleCertificate[0]?.filename;
 
     if(!userId || !fatherName || !birthDate || !cnic || !totalReviewsGiven || !totalRating || !residentialAddress || !vehicleType || !vehicleNumber || !vehicleBrand || !liscenseNumber || !liscenseExpiryDate ){
         return res.status(422).json({message: 'Please fill out all the fields properly.', success: false})

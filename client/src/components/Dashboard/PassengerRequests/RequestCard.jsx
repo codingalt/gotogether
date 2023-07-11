@@ -81,7 +81,7 @@ const RequestCard = ({data}) => {
       <div className={css.seatInfo}>
         <div className={css.left}>
           <fa.FaMoneyCheck />
-          <span>Charges Offer</span>
+          <span>Charges Offered</span>
         </div>
         <div className={css.right}>
           <span>{data?.costPerSeat}RS</span>
